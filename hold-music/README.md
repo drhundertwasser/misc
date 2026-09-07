@@ -18,9 +18,15 @@ is the effect you were after.
 
 ## Before you start
 
-**This only makes noise on your own computer.** If you use Claude Code on the
-web, the hooks run on a remote machine that has no speakers. Use the Claude Code
-CLI or desktop app locally for this.
+**The session has to be running on your own computer.** Hooks run wherever the
+session runs, and a remote machine has no speakers.
+
+- **Claude Desktop, Code tab**: start the session as **Local**, not Cloud. This
+  is the single most common reason for silence — everything can be configured
+  perfectly and a cloud session will still play nothing.
+- **Claude Code in a terminal** (`claude`): always local, nothing to choose.
+- **Claude Code on the web**: remote, so no sound. Nothing to be done about it.
+- **The Chat tab / the regular Claude app**: does not support hooks at all.
 
 You need `python3` (only to generate the tune once) and any one of these audio
 players, most of which you probably already have:
@@ -30,6 +36,25 @@ players, most of which you probably already have:
 - Windows: use WSL, or see [Windows](#windows) below
 
 ## Setup
+
+The short version, if you just want it working:
+
+```bash
+cd hold-music
+./install-hooks.sh
+```
+
+That edits `~/.claude/settings.json` for you (backing it up first), generates
+the tune, and prints what it did. To undo it later, run
+`./install-hooks.sh --uninstall`. Then restart Claude Code, or start a new
+session, and run `/hooks` to confirm the four hooks are listed.
+
+Running it twice is harmless, anything already in your settings is preserved,
+and if your settings file has a JSON syntax error it stops and tells you rather
+than mangling the file.
+
+The rest of this section is the same thing done by hand, if you would rather see
+exactly what changes.
 
 **1. Generate the tune.**
 
@@ -84,9 +109,10 @@ the `hold-music` directory to get it.
 
 There is a ready-to-edit copy of this in [`settings-snippet.json`](settings-snippet.json).
 
-**3. Restart Claude Code** so it picks up the new settings, then ask it
-something slow. Run `/hooks` to see what Claude Code has loaded — it is a
-read-only viewer, which makes it a good way to check your JSON took effect.
+**3. Check it took.** Claude Code watches the settings file and usually picks up
+hook changes within a few seconds; if nothing happens, start a new session. Run
+`/hooks` to see what it has loaded — it is a read-only viewer, which makes it a
+good way to confirm your JSON parsed. Then ask for something slow.
 
 ## Using your own music instead
 
@@ -176,6 +202,11 @@ ffplay -nodisp -autoexit hold-music.wav
 **Music never stops.** Run `./stop.sh` by hand. If that fixes it, your `Stop`
 hook is not firing — check `/hooks` and your JSON syntax (a stray comma is the
 usual culprit).
+
+**Hooks are listed in `/hooks` but nothing happens.** Check the session is
+running locally rather than in the cloud. Then run `/debug` in the session to
+turn on debug logging, which records which hooks matched and what exit code and
+output each produced.
 
 **Music stops too early.** The `Notification` hook fires when Claude wants your
 input. If you would rather the music keep playing through permission prompts,
