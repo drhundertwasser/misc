@@ -48,6 +48,14 @@ be configured perfectly while a Cloud session still plays nothing.
 Claude Code in a terminal is always local. Claude Code on the web is always
 remote. The regular Claude chat app has no hooks at all.
 
+To start a Local session in Claude Desktop: open the **Code** tab, set the
+**Environment** dropdown to **Local**, click **Select folder** and choose the
+project folder, pick a model and a permission mode, then type the prompt. The
+Desktop app has Claude Code built in — there is no CLI or Node.js to install
+separately. There is no indicator afterwards showing whether a session is Local
+or Cloud, and an existing session cannot be converted, so set the dropdown
+before sending the first message.
+
 ## What I still need to do
 
 ```bash

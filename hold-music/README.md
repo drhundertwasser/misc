@@ -21,9 +21,13 @@ is the effect you were after.
 **The session has to be running on your own computer.** Hooks run wherever the
 session runs, and a remote machine has no speakers.
 
-- **Claude Desktop, Code tab**: start the session as **Local**, not Cloud. This
-  is the single most common reason for silence — everything can be configured
-  perfectly and a cloud session will still play nothing.
+- **Claude Desktop, Code tab**: start the session as **Local**, not Cloud. In
+  the prompt area there is an **Environment** dropdown — set it to **Local**
+  before you send your first message. This is the single most common reason for
+  silence: everything can be configured perfectly and a cloud session will still
+  play nothing. There is no visible badge afterwards telling you which kind of
+  session you are in, and an existing session cannot be switched, so check the
+  dropdown up front.
 - **Claude Code in a terminal** (`claude`): always local, nothing to choose.
 - **Claude Code on the web**: remote, so no sound. Nothing to be done about it.
 - **The Chat tab / the regular Claude app**: does not support hooks at all.
