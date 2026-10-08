@@ -1,0 +1,16 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Unknowns — sample issue</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;height:100%;background:#222;overflow:hidden;font-family:'Comic Neue',sans-serif}
+#wrap{position:absolute;left:50%;top:0;width:1600px;height:900px;margin-left:-800px;transform-origin:top center;background:#fff}
+#stage{display:block;width:1600px;height:900px}
+#ui{position:fixed;left:0;right:0;bottom:0;height:60px;background:#111;color:#fff;display:flex;align-items:center;gap:14px;padding:0 16px;box-sizing:border-box}
+#play{font-size:22px;width:52px;height:40px;border:0;border-radius:6px;background:#ffe14d;cursor:pointer}
+#scrub{flex:1}
+#time{font-variant-numeric:tabular-nums;min-width:120px;text-align:right}
+#hint{opacity:.6;font-size:13px}
+</style></head><body>
+<div id="wrap"><svg id="stage" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg"></svg></div>
+<div id="ui"><button id="play">▶</button><input id="scrub" type="range" min="0" max="100" step="0.05" value="0"><span id="time">0.0</span><span id="hint">space: play/pause · ←/→: step · shift+←/→: scene</span></div>
+<script src="lib.js"></script><script src="characters.js"></script><script src="cast.js"></script><script src="scenes.js"></script><script src="app.js"></script>
+</body></html>

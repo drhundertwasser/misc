@@ -1,0 +1,12 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Cast sheet</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#fff}svg{display:block}</style></head><body>
+<svg id="s" viewBox="0 0 1600 900" width="1600" height="900" xmlns="http://www.w3.org/2000/svg"><rect width="1600" height="900" fill="#fff"/></svg>
+<script src="lib.js"></script><script src="characters.js"></script><script src="cast.js"></script>
+<script>
+const s=document.getElementById('s'); let out='';
+const names=Object.keys(CAST); const cols=6;
+names.forEach((n,i)=>{const c=i%cols, r=Math.floor(i/cols); out+=figure({...CAST[n], name:n, x:140+c*265, y:400+r*430, scale:.95});
+ out+=`<text x="${140+c*265}" y="${430+r*430}" text-anchor="middle" font-family="Bangers" font-size="26" fill="#111">${n}</text>`;});
+s.innerHTML+=out;
+</script></body></html>
