@@ -9,7 +9,9 @@ Source material: "What Are the Biggest Questions in Science Today? 100 Scientist
    from a different corner of the list. Chosen: 15, comic book.
 2. **Sample animation** (done) — eleven questions, one per category, as an animated comic.
    See `comic/README.md`. Video: `comic/out/unknowns-sample.mp4`.
-3. (Optional) The full set.
+3. **Image-model upgrade** (in progress) — hand each frame to an image model via fal.ai to lift the
+   drawing quality. Tooling and prompts are in `gen/`; it needs a `FAL_KEY` environment secret.
+4. (Optional) The full set.
 
 ## Folder layout
 
@@ -17,6 +19,7 @@ Source material: "What Are the Biggest Questions in Science Today? 100 Scientist
 unknowns/
   README.md                 this file
   comic/                    the animated comic (player, scenes, cast, MP4 export)
+  gen/                      fal.ai client + prompts for the image-model upgrade test
   styleframes/
     frames/*.html           one self-contained 1600x900 frame per style (SVG + CSS, Google Fonts)
     render.js               Playwright script: renders every frame to out/*.png + a contact sheet
