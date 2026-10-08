@@ -27,26 +27,35 @@ An animated short in which a different scientist investigates one question from 
 - `gen/` — fal.ai client (`fal.js`), prompts for frame 1 (Hazen, "Are we alone in the universe?"),
   and the reference frame `comic/out/frame-01.png`. Written and tested without a key (exits cleanly).
 
-## Results of the fal.ai test (Oct 8, 2026)
+## Results so far (Oct 8, 2026)
 
-Both runs worked with Seedream 4 (`FAL_KEY` is set in the environment). Outputs in `gen/out/`:
+**Owner chose direction C**: let the image model compose each scene from a prompt, then animate it.
 
-- `01-hazen-edit.png` — image-to-image from `comic/out/frame-01.png`. Same layout, much nicer character
-  (expressive face, inked line weights, halftone sky). Text survived almost intact; the caption box reads
-  "UNKHOWN" instead of "UNKNOWN", which proves the point that lettering should stay as code.
-- `01-hazen-t2i.png` — text-to-image from the prompt only. Richer scene (big dish on a tower, hills, telescope,
-  credit strip) and all text spelled correctly this time, but the composition no longer matches our frame.
-- `01-hazen-compare.png` — the three stacked with labels (A original, B edit, C text-to-image) for review.
+The pipeline that works (all in `gen/`, each step tested on scene 1, Hazen):
+
+1. `fal.js --prompt prompts/01-hazen-notext.txt` → a text-free "plate" (`out/01-hazen-plate.png`). The prompt
+   says "absolutely no text" and "exactly two hands" (the first try drew three hands).
+2. `fal-video.js --model seedance --fixed --image out/01-hazen-plate.png --prompt prompts/01-hazen-motion.txt`
+   → 5 s, 1080p, 24 fps clip with the camera locked (`out/01-hazen-plate-seedance.mp4`). `--model kling` is the
+   alternative; both take ~1–2 min.
+3. `NODE_PATH=/opt/node-tools/node_modules node compose.js --video <clip> --scene hazen --out <final.mp4>`
+   → lays the code-drawn lettering from `overlay.html` + `overlays.js` (caption, bubble, SFX, credit strip,
+   cream margin) over the clip frame by frame. Lettering reuses `comic/lib.js`, so it matches the sample issue.
+
+Finals: `out/01-hazen-final-seedance.mp4` and `out/01-hazen-final-kling.mp4`. Earlier experiments kept for
+reference: `01-hazen-edit.png` (image-to-image, misspelled "UNKHOWN"), `01-hazen-t2i.png` (panel C with baked-in
+text), `01-hazen-seedance.mp4` / `01-hazen-kling.mp4` (animating C directly: text drifted or decayed, which is
+why lettering now lives in code).
 
 ## Next step
 
-1. Owner picks a direction: **B** (edit our frames, keep layout) or **C** (let the model compose, prompt per scene).
-2. Either way, strip the lettering from the frame before sending it to the model (render scenes with a
-   `--no-text` flag in the comic renderer) and lay caption, bubble, SFX and credit strip back on top in code,
-   because the model misspells text (see "UNKHOWN").
-3. Repeat for the other ten scenes; keep a consistent seed and style wording so the cast looks like one artist.
-4. Then try an image-to-video model on fal (e.g. Kling or Seedance image-to-video) on one finished panel for
-   a 3–5 s clip, to decide whether motion comes from the model or stays as our code animation.
+1. Owner picks Seedance or Kling for motion (Seedance honours "camera fixed"; both looked good on scene 1).
+2. Write `prompts/NN-<id>-notext.txt` and `prompts/NN-<id>-motion.txt` for the other ten scenes
+   (scene list and lettering text are in `comic/scenes.js`); generate plates, pick the best of 2, animate.
+3. Add a layout entry per scene to `overlays.js` (bubble position and tail, SFX spot, timing), checking each
+   with a still: `overlay.html?scene=<id>&t=3` composited over the plate.
+4. Cut the eleven finals together (plus the cover and "to be continued" cards from `comic/`) into one MP4,
+   likely with ffmpeg concat, and compare against `comic/out/unknowns-sample.mp4`.
 
 ## Gotchas
 

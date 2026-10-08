@@ -1,0 +1,33 @@
+<!doctype html><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+<style>html,body{margin:0;background:transparent}svg{display:block}</style>
+<!-- Lettering overlay for a generated panel. Transparent background; everything here is drawn in code so
+     spelling and position are guaranteed. Coordinates are the comic's 1600x900 space, scaled to 1920x1080.
+     window.__seek(t) poses the furniture for time t (seconds). Pass ?scene=<id> to choose the scene. -->
+<svg id="svg" width="1920" height="1080" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg"></svg>
+<script src="../comic/lib.js"></script>
+<script src="overlays.js"></script>
+<script>
+  const params = new URLSearchParams(location.search);
+  const scene = OVERLAYS[params.get('scene') || 'hazen'];
+  const svg = document.getElementById('svg');
+  const PAPER = '#f3ead8';
+  // Cream paper margin around the panel frame, then the frame itself, then the furniture.
+  svg.innerHTML =
+    `<path d="M0 0 H1600 V900 H0 Z M30 30 V870 H1570 V30 Z" fill="${PAPER}" fill-rule="evenodd"/>` + U.frame() +
+    `<g data-id="capwrap">` + U.caption('cap', 50, 50, scene.caption) + `</g>` +
+    U.bubble('bub', scene.bubble.x, scene.bubble.y, scene.bubble.w, scene.bubble.h, scene.bubble.tail[0], scene.bubble.tail[1], scene.bubble.lines, { size: scene.bubble.size || 34 }) +
+    scene.sfx.map(s => U.sfx(s.id, s.x, s.y, s.text, s)).join('') +
+    U.credit('cred', scene.credit[0], scene.credit[1]);
+  const P = U.collect(svg);
+  const T = scene.timing || {};
+  function seek(t) {
+    const capIn = U.easeOut(U.prog(t, T.cap || 0, (T.cap || 0) + .4));
+    P.capwrap.setAttribute('transform', `translate(${-450 * (1 - capIn)} 0)`);
+    const credIn = U.easeOut(U.prog(t, T.cred || .3, (T.cred || .3) + .4));
+    P.cred.setAttribute('transform', `translate(0 ${120 * (1 - credIn)})`);
+    U.setPop(P.bub, U.pop(U.prog(t, T.bub || 1, (T.bub || 1) + .4)));
+    for (const s of scene.sfx) U.setPop(P[s.id], U.pop(U.prog(t, s.t, s.t + .35)));
+  }
+  window.__seek = seek; seek(Number(params.get('t') || 0));
+</script>

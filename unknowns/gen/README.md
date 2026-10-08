@@ -16,3 +16,11 @@ is given), 2048x1152. Override with `--model`, `--size`, `--seed`, `--n`.
 
 Rendering a reference frame from the comic at a given second:
 `cd ../comic && NODE_PATH=/opt/node-tools/node_modules node shot.js index.html out/frame-01.png 8.5`
+
+## Video pipeline (direction C)
+
+1. Plate without text: `node fal.js --prompt prompts/01-hazen-notext.txt --n 2 --out out/01-hazen-notext.png`
+2. Motion: `node fal-video.js --model seedance --fixed --image out/01-hazen-plate.png --prompt prompts/01-hazen-motion.txt --out out/01-hazen-plate-seedance.mp4`
+3. Lettering in code: `NODE_PATH=/opt/node-tools/node_modules node compose.js --video out/01-hazen-plate-seedance.mp4 --scene hazen --out out/01-hazen-final-seedance.mp4`
+
+Layouts live in `overlays.js`; preview one with `overlay.html?scene=hazen&t=3`.
