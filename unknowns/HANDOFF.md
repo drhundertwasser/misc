@@ -47,15 +47,26 @@ reference: `01-hazen-edit.png` (image-to-image, misspelled "UNKHOWN"), `01-hazen
 text), `01-hazen-seedance.mp4` / `01-hazen-kling.mp4` (animating C directly: text drifted or decayed, which is
 why lettering now lives in code).
 
+## Five side-by-sides (Oct 8, 2026)
+
+Scenes 1–5 (Hazen, Sarcevic, Lieberman, Kariko, Horowitz) each exist as `gen/out/NN-<id>-sidebyside.mp4`:
+Seedance on the left, Kling on the right, same text-free plate and same code lettering. Per scene the files are
+`NN-<id>-plate.png` (chosen plate), `NN-<id>-notext-{1,2}.png` (both candidates), `NN-<id>-plate-{seedance,kling}.mp4`
+(raw motion), `NN-<id>-final-{seedance,kling}.mp4` (lettered). Layouts for all five are in `gen/overlays.js`;
+`gen/still.js` previews a layout on a plate; `gen/sidebyside.sh` builds the comparison.
+
+Observations: both models keep the camera still and the style intact. Seedance tends to give bigger, more
+deliberate character acting (turning, lowering the skull); Kling is calmer and keeps props closer to the plate.
+Seedance sometimes exaggerates effects (scene 2's particles grow into magenta blobs). Lettering never breaks
+because it is drawn in code.
+
 ## Next step
 
-1. Owner picks Seedance or Kling for motion (Seedance honours "camera fixed"; both looked good on scene 1).
-2. Write `prompts/NN-<id>-notext.txt` and `prompts/NN-<id>-motion.txt` for the other ten scenes
-   (scene list and lettering text are in `comic/scenes.js`); generate plates, pick the best of 2, animate.
-3. Add a layout entry per scene to `overlays.js` (bubble position and tail, SFX spot, timing), checking each
-   with a still: `overlay.html?scene=<id>&t=3` composited over the plate.
-4. Cut the eleven finals together (plus the cover and "to be continued" cards from `comic/`) into one MP4,
-   likely with ffmpeg concat, and compare against `comic/out/unknowns-sample.mp4`.
+1. Owner picks Seedance or Kling (or per scene). Then generate the remaining six scenes (wright, and scenes 7–11
+   from `comic/scenes.js`) the same way: notext prompt → pick of 2 → motion → `overlays.js` entry → compose.
+2. Cut all eleven finals together with the cover and "to be continued" cards, compare against
+   `comic/out/unknowns-sample.mp4`.
+3. Optional polish: per-scene timing so the SFX pops when the action happens; a short crossfade between panels.
 
 ## Gotchas
 
