@@ -27,18 +27,26 @@ An animated short in which a different scientist investigates one question from 
 - `gen/` — fal.ai client (`fal.js`), prompts for frame 1 (Hazen, "Are we alone in the universe?"),
   and the reference frame `comic/out/frame-01.png`. Written and tested without a key (exits cleanly).
 
+## Results of the fal.ai test (Oct 8, 2026)
+
+Both runs worked with Seedream 4 (`FAL_KEY` is set in the environment). Outputs in `gen/out/`:
+
+- `01-hazen-edit.png` — image-to-image from `comic/out/frame-01.png`. Same layout, much nicer character
+  (expressive face, inked line weights, halftone sky). Text survived almost intact; the caption box reads
+  "UNKHOWN" instead of "UNKNOWN", which proves the point that lettering should stay as code.
+- `01-hazen-t2i.png` — text-to-image from the prompt only. Richer scene (big dish on a tower, hills, telescope,
+  credit strip) and all text spelled correctly this time, but the composition no longer matches our frame.
+- `01-hazen-compare.png` — the three stacked with labels (A original, B edit, C text-to-image) for review.
+
 ## Next step
 
-1. Confirm the key is present: `echo ${FAL_KEY:+set}` should print `set`. If not, it must be added as an
-   **environment variable** named `FAL_KEY` in the cloud environment settings (not a "Network secret":
-   Fal needs the header `Authorization: Key …`, which the secret types can't produce).
-2. Run the image-to-image test, which keeps our composition and text:
-   `cd unknowns/gen && node fal.js --prompt prompts/01-hazen-edit.txt --image ../comic/out/frame-01.png --out out/01-hazen-edit.png`
-3. Also run text-to-image for comparison:
-   `node fal.js --prompt prompts/01-hazen.txt --out out/01-hazen-t2i.png`
-4. Send both images to the owner, side by side with the original frame, and ask which direction to take.
-5. Likely follow-up: let the model draw the picture and keep lettering (caption, bubble, credit) as code
-   laid over it, because image models misspell text. Then try an image-to-video clip on fal.
+1. Owner picks a direction: **B** (edit our frames, keep layout) or **C** (let the model compose, prompt per scene).
+2. Either way, strip the lettering from the frame before sending it to the model (render scenes with a
+   `--no-text` flag in the comic renderer) and lay caption, bubble, SFX and credit strip back on top in code,
+   because the model misspells text (see "UNKHOWN").
+3. Repeat for the other ten scenes; keep a consistent seed and style wording so the cast looks like one artist.
+4. Then try an image-to-video model on fal (e.g. Kling or Seedance image-to-video) on one finished panel for
+   a 3–5 s clip, to decide whether motion comes from the model or stays as our code animation.
 
 ## Gotchas
 
