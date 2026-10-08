@@ -1,0 +1,93 @@
+<!doctype html><html><head><meta charset="utf-8"><title>10 Crayon picture book</title>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>html,body{margin:0;width:1600px;height:900px;overflow:hidden;background:#fffdf7}svg{display:block}</style></head><body>
+<svg viewBox="0 0 1600 900" width="1600" height="900" xmlns="http://www.w3.org/2000/svg">
+<defs>
+ <filter id="crayon" x="-10%" y="-10%" width="120%" height="120%">
+  <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="3" seed="4" result="n"/>
+  <feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1.6 1.55" result="a"/>
+  <feComposite in="SourceGraphic" in2="a" operator="in" result="t"/>
+  <feTurbulence type="fractalNoise" baseFrequency=".04" numOctaves="2" seed="9" result="w"/>
+  <feDisplacementMap in="t" in2="w" scale="5"/>
+ </filter>
+ <filter id="paper"><feTurbulence type="fractalNoise" baseFrequency=".5" numOctaves="2" seed="2"/><feColorMatrix values="0 0 0 0 .6 0 0 0 0 .5 0 0 0 0 .3 0 0 0 .06 0"/></filter>
+ <pattern id="sB" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><path d="M0 7 q3 -3 7 0 t7 0" stroke="#8b5a2b" stroke-width="7" fill="none"/></pattern>
+ <pattern id="sY" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(-30)"><path d="M0 7 q3 -3 7 0 t7 0" stroke="#f5c400" stroke-width="7" fill="none"/></pattern>
+ <pattern id="sR" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(40)"><path d="M0 7 q3 -3 7 0 t7 0" stroke="#e63946" stroke-width="7" fill="none"/></pattern>
+ <pattern id="sG" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(60)"><path d="M0 7 q3 -3 7 0 t7 0" stroke="#3aa655" stroke-width="7" fill="none"/></pattern>
+ <pattern id="sBl" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(25)"><path d="M0 7 q3 -3 7 0 t7 0" stroke="#2a6fdb" stroke-width="7" fill="none"/></pattern>
+ <pattern id="sK" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(50)"><path d="M0 7 q3 -3 7 0 t7 0" stroke="#f2c9a0" stroke-width="7" fill="none"/></pattern>
+ <pattern id="sO" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><path d="M0 7 q3 -3 7 0 t7 0" stroke="#ff7b2e" stroke-width="7" fill="none"/></pattern>
+</defs>
+<rect width="1600" height="900" fill="#fffdf7"/>
+<g filter="url(#crayon)" stroke-linecap="round" stroke-linejoin="round">
+ <!-- sun -->
+ <circle cx="1420" cy="140" r="70" fill="url(#sY)"/><circle cx="1420" cy="140" r="70" fill="none" stroke="#f5c400" stroke-width="9"/>
+ <path d="M1420 40 l0 -25 M1420 240 l0 25 M1320 140 l-25 0 M1520 140 l25 0 M1350 70 l-18 -18 M1490 210 l18 18 M1490 70 l18 -18 M1350 210 l-18 18" stroke="#f5c400" stroke-width="9" fill="none"/>
+ <!-- grass -->
+ <path d="M0 790 l20 -30 l20 30 l20 -35 l20 35 l20 -28 l20 28 l20 -36 l20 36 l20 -30 l20 30 l20 -34 l20 34 l20 -28 l20 28 l20 -36 l20 36 l20 -30 l20 30 l20 -34 l20 34 l20 -28 l20 28 l20 -36 l20 36 l20 -30 l20 30 l20 -34 l20 34 l20 -28 l20 28 l20 -36 l20 36 l20 -30 l20 30 l20 -34 l20 34 l20 -28 l20 28 l20 -36 l20 36 l20 -30 l20 30 l20 -34 l20 34 l20 -28 l20 28 l20 -36 l20 36 l20 -30 l20 30 l20 -34 l20 34 l20 -28 l20 28 l20 -36 l20 36 l20 -30 l20 30 l20 -34 l20 34 l20 -28 l20 28 l20 -36 l20 36 l20 -30 l20 30 l20 -34 l20 34 l20 -28 l20 28 l20 -36 l20 36 l20 -30 l20 30 l20 -34 l20 34 l20 -28 l20 28" stroke="#3aa655" stroke-width="9" fill="none"/>
+ <rect x="0" y="790" width="1600" height="110" fill="url(#sG)"/>
+ <!-- flowers -->
+ <g stroke-width="7" fill="none"><path d="M120 790 l0 -60" stroke="#3aa655"/><circle cx="120" cy="715" r="18" stroke="#e63946"/><circle cx="120" cy="715" r="6" fill="#f5c400" stroke="none"/>
+ <path d="M1500 790 l0 -70" stroke="#3aa655"/><circle cx="1500" cy="705" r="18" stroke="#ff7b2e"/><circle cx="1500" cy="705" r="6" fill="#f5c400" stroke="none"/></g>
+ <!-- scientist in wheelchair (left) -->
+ <g>
+  <!-- wheels -->
+  <circle cx="330" cy="700" r="90" fill="none" stroke="#2a6fdb" stroke-width="10"/><circle cx="330" cy="700" r="30" fill="none" stroke="#2a6fdb" stroke-width="8"/>
+  <path d="M330 610 L330 790 M240 700 L420 700 M268 638 L392 762 M268 762 L392 638" stroke="#2a6fdb" stroke-width="6" fill="none"/>
+  <circle cx="500" cy="760" r="30" fill="none" stroke="#2a6fdb" stroke-width="9"/>
+  <!-- seat & frame -->
+  <path d="M300 600 L420 600 L440 680 L500 700 L500 730" stroke="#2a6fdb" stroke-width="10" fill="none"/>
+  <!-- legs -->
+  <path d="M400 600 L470 640 L470 720" stroke="#e63946" stroke-width="30" fill="none"/>
+  <path d="M470 720 L510 720" stroke="#8b5a2b" stroke-width="22" fill="none"/>
+  <!-- body -->
+  <path d="M310 600 L300 470 L420 470 L430 600Z" fill="url(#sBl)"/><path d="M310 600 L300 470 L420 470 L430 600Z" fill="none" stroke="#2a6fdb" stroke-width="8"/>
+  <!-- arm pointing to dog -->
+  <path d="M420 500 L540 560 L600 540" stroke="#2a6fdb" stroke-width="24" fill="none"/><circle cx="605" cy="538" r="16" fill="url(#sK)"/><circle cx="605" cy="538" r="16" fill="none" stroke="#f2c9a0" stroke-width="7"/>
+  <!-- head -->
+  <circle cx="360" cy="410" r="58" fill="url(#sK)"/><circle cx="360" cy="410" r="58" fill="none" stroke="#f2c9a0" stroke-width="8"/>
+  <!-- red ponytail hair -->
+  <path d="M305 395 C300 340 420 335 418 395 C395 370 330 370 305 395Z" fill="url(#sO)"/><path d="M305 395 C300 340 420 335 418 395 C395 370 330 370 305 395Z" fill="none" stroke="#ff7b2e" stroke-width="8"/>
+  <path d="M410 380 C470 370 480 430 450 480" stroke="#ff7b2e" stroke-width="16" fill="none"/>
+  <!-- face + freckles + glasses -->
+  <circle cx="345" cy="410" r="5" fill="#333"/><circle cx="380" cy="410" r="5" fill="#333"/>
+  <path d="M345 440 q18 14 36 0" stroke="#e63946" stroke-width="5" fill="none"/>
+  <circle cx="330" cy="430" r="2.5" fill="#c77"/><circle cx="340" cy="436" r="2.5" fill="#c77"/><circle cx="392" cy="432" r="2.5" fill="#c77"/>
+  <circle cx="345" cy="410" r="18" fill="none" stroke="#333" stroke-width="4"/><circle cx="382" cy="410" r="18" fill="none" stroke="#333" stroke-width="4"/>
+  <!-- notebook on lap -->
+  <rect x="320" y="595" width="80" height="22" fill="url(#sY)"/><rect x="320" y="595" width="80" height="22" fill="none" stroke="#f5c400" stroke-width="5"/>
+ </g>
+ <!-- dog (brown, floppy ears) sniffing a hydrant -->
+ <g>
+  <ellipse cx="880" cy="680" rx="150" ry="70" fill="url(#sB)"/><ellipse cx="880" cy="680" rx="150" ry="70" fill="none" stroke="#8b5a2b" stroke-width="9"/>
+  <path d="M780 740 L770 800 M840 745 L835 800 M930 745 L935 800 M990 735 L1000 800" stroke="#8b5a2b" stroke-width="22" fill="none"/>
+  <path d="M740 650 C700 600 690 560 720 540" stroke="#8b5a2b" stroke-width="18" fill="none"/>
+  <!-- head, leaning toward hydrant -->
+  <circle cx="1040" cy="640" r="60" fill="url(#sB)"/><circle cx="1040" cy="640" r="60" fill="none" stroke="#8b5a2b" stroke-width="9"/>
+  <path d="M1080 650 L1150 680 L1130 700 L1075 690Z" fill="url(#sB)"/><path d="M1080 650 L1150 680 L1130 700 L1075 690Z" fill="none" stroke="#8b5a2b" stroke-width="8"/>
+  <circle cx="1152" cy="684" r="12" fill="#333"/>
+  <path d="M1000 600 C960 630 970 700 1010 700" stroke="#8b5a2b" stroke-width="26" fill="none"/>
+  <circle cx="1050" cy="630" r="6" fill="#333"/>
+  <path d="M1040 700 q20 12 40 -4" stroke="#333" stroke-width="4" fill="none"/>
+ </g>
+ <!-- hydrant -->
+ <g><rect x="1230" y="640" width="60" height="150" rx="14" fill="url(#sR)"/><rect x="1230" y="640" width="60" height="150" rx="14" fill="none" stroke="#e63946" stroke-width="9"/>
+  <circle cx="1260" cy="630" r="26" fill="url(#sR)"/><circle cx="1260" cy="630" r="26" fill="none" stroke="#e63946" stroke-width="9"/>
+  <rect x="1205" y="690" width="110" height="26" rx="10" fill="none" stroke="#e63946" stroke-width="9"/></g>
+ <!-- scent wisps -->
+ <path d="M1260 600 c-20 -40 20 -60 0 -100 c-15 -30 15 -50 0 -80 M1300 610 c20 -40 -10 -70 10 -110 c15 -25 -5 -45 10 -70 M1220 600 c-25 -30 -5 -60 -25 -90" stroke="#9b59b6" stroke-width="7" fill="none" stroke-dasharray="1 14"/>
+ <!-- thought cloud over the dog -->
+ <circle cx="1090" cy="560" r="9" fill="none" stroke="#9b59b6" stroke-width="5"/><circle cx="1110" cy="520" r="14" fill="none" stroke="#9b59b6" stroke-width="5"/>
+ <path d="M1000 420 c-40 -60 40 -110 90 -70 c30 -60 130 -50 130 10 c60 0 70 80 10 90 c-10 50 -100 60 -120 20 c-50 30 -130 0 -110 -50z" fill="none" stroke="#9b59b6" stroke-width="7"/>
+ <!-- inside: bone, cat, another dog -->
+ <g stroke-width="6" fill="none"><path d="M1030 420 l50 -20" stroke="#8b5a2b"/><circle cx="1026" cy="414" r="8" stroke="#8b5a2b"/><circle cx="1034" cy="426" r="8" stroke="#8b5a2b"/><circle cx="1076" cy="394" r="8" stroke="#8b5a2b"/><circle cx="1084" cy="406" r="8" stroke="#8b5a2b"/>
+  <circle cx="1140" cy="400" r="22" stroke="#333"/><path d="M1124 384 l-6 -18 l16 8 M1156 384 l6 -18 l-16 8" stroke="#333"/>
+  <ellipse cx="1200" cy="410" rx="24" ry="14" stroke="#ff7b2e"/><circle cx="1222" cy="400" r="9" stroke="#ff7b2e"/></g>
+</g>
+<!-- text -->
+<text x="70" y="110" font-family="Patrick Hand" font-size="72" fill="#9b59b6" filter="url(#crayon)">13.</text>
+<text x="70" y="190" font-family="Patrick Hand" font-size="48" fill="#2a6fdb" filter="url(#crayon)"><tspan x="70">What kind of information - about people,</tspan><tspan x="70" dy="56">places and other dogs - can dogs</tspan><tspan x="70" dy="56">acquire through smell?</tspan></text>
+<text x="70" y="345" font-family="Patrick Hand" font-size="28" fill="#333" filter="url(#crayon)">Alexandra Horowitz, cognitive scientist, Dog Cognition Lab, Barnard College</text>
+<rect width="1600" height="900" filter="url(#paper)"/>
+</svg></body></html>

@@ -1,0 +1,87 @@
+<!doctype html><html><head><meta charset="utf-8"><title>12 Chalkboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>html,body{margin:0;width:1600px;height:900px;overflow:hidden;background:#2b4a3c}svg{display:block}</style></head><body>
+<svg viewBox="0 0 1600 900" width="1600" height="900" xmlns="http://www.w3.org/2000/svg">
+<defs>
+ <filter id="chalk" x="-5%" y="-5%" width="110%" height="110%">
+  <feTurbulence type="fractalNoise" baseFrequency=".7" numOctaves="3" seed="6" result="n"/>
+  <feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1.3 1.5" result="a"/>
+  <feComposite in="SourceGraphic" in2="a" operator="in" result="t"/>
+  <feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="3" result="w"/>
+  <feDisplacementMap in="t" in2="w" scale="3"/>
+ </filter>
+ <filter id="smudge" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="30"/></filter>
+ <radialGradient id="vig" cx=".5" cy=".5" r=".75"><stop offset="0" stop-color="#2f5243"/><stop offset="1" stop-color="#1f382d"/></radialGradient>
+ <pattern id="hatch" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(30)"><path d="M0 6 H12" stroke="#f1f1e6" stroke-width="1.5" opacity=".6"/></pattern>
+</defs>
+<rect width="1600" height="900" fill="url(#vig)"/>
+<!-- chalk dust smudges -->
+<g fill="#fff" opacity=".07" filter="url(#smudge)"><ellipse cx="400" cy="500" rx="300" ry="120"/><ellipse cx="1100" cy="300" rx="260" ry="90"/><ellipse cx="800" cy="750" rx="500" ry="60"/></g>
+<!-- wooden frame + tray -->
+<rect x="0" y="0" width="1600" height="900" fill="none" stroke="#8b5a2b" stroke-width="40"/>
+<rect x="0" y="0" width="1600" height="900" fill="none" stroke="#a9733a" stroke-width="12"/>
+<rect x="400" y="862" width="800" height="18" fill="#8b5a2b"/><rect x="400" y="858" width="800" height="6" fill="#a9733a"/>
+<rect x="700" y="846" width="60" height="12" rx="3" fill="#f1f1e6"/><rect x="790" y="846" width="60" height="12" rx="3" fill="#f6d365"/><rect x="880" y="846" width="60" height="12" rx="3" fill="#ff9aa2"/>
+<!-- chalk drawings -->
+<g filter="url(#chalk)" fill="none" stroke="#f1f1e6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+ <!-- fault block diagram -->
+ <g transform="translate(90 330)">
+  <path d="M0 0 H420 V260 H0Z"/>
+  <path d="M0 60 H420 M0 120 H420 M0 190 H420" stroke-width="2.5" opacity=".7"/>
+  <path d="M150 260 L290 0" stroke-width="6"/>
+  <path d="M20 240 L0 240 M0 240 L20 230 M0 240 L20 250" transform="translate(0 0)"/>
+  <!-- motion arrows -->
+  <path d="M60 300 L140 300 M120 290 L140 300 L120 310" stroke="#f6d365" stroke-width="5"/>
+  <path d="M360 300 L280 300 M300 290 L280 300 L300 310" stroke="#f6d365" stroke-width="5"/>
+  <path d="M0 -20 L420 -20 M0 -30 L0 -10 M420 -30 L420 -10" stroke-width="2.5"/>
+  <!-- rupture star -->
+  <path d="M225 125 l12 -30 l6 28 l28 -8 l-22 18 l24 16 l-28 -4 l0 30 l-14 -26 l-20 20 l6 -28 l-30 2 l26 -14 l-20 -22z" stroke="#ff9aa2" stroke-width="3"/>
+ </g>
+ <!-- spring-slider -->
+ <g transform="translate(600 360)">
+  <path d="M0 160 H420" stroke-width="5"/>
+  <path d="M0 160 l-10 20 M40 160 l-10 20 M80 160 l-10 20 M120 160 l-10 20 M160 160 l-10 20 M200 160 l-10 20 M240 160 l-10 20 M280 160 l-10 20 M320 160 l-10 20 M360 160 l-10 20 M400 160 l-10 20" stroke-width="2.5"/>
+  <rect x="80" y="70" width="130" height="90"/>
+  <path d="M210 115 l15 0 l10 -20 l20 40 l20 -40 l20 40 l20 -40 l20 40 l10 -20 l20 0 M365 115 l55 0 M400 100 l20 15 l-20 15" stroke="#f6d365"/>
+  <path d="M30 115 l50 0 M50 100 l-20 15 l20 15" stroke="#ff9aa2" stroke-width="3"/>
+ </g>
+ <!-- seismogram -->
+ <path d="M90 720 h120 l4 -8 l4 8 h40 l3 -6 l3 6 h60 l5 -40 l6 70 l6 -90 l5 110 l6 -80 l6 60 l5 -40 l5 30 l6 -20 l6 14 l5 -10 l40 0 l6 -60 l8 120 l8 -140 l8 150 l8 -120 l8 90 l8 -60 l8 40 l8 -24 l8 14 l8 -8 h40 l4 -10 l4 10 h60 l3 -6 l3 6 h120" stroke="#f1f1e6" stroke-width="3"/>
+ <!-- scientist (right), colored chalk -->
+ <g transform="translate(1180 230)">
+  <!-- locs -->
+  <path d="M70 60 C60 0 180 0 170 60 M80 70 l-18 90 M100 60 l-12 100 M125 55 l-4 105 M150 60 l6 100 M168 70 l16 90" stroke="#f1f1e6" stroke-width="7"/>
+  <!-- head -->
+  <path d="M75 80 C70 140 170 140 165 80 C165 50 75 50 75 80Z" fill="#c9a27e" stroke="#c9a27e" stroke-width="3" opacity=".9"/>
+  <path d="M100 95 q6 -6 12 0 M135 95 q6 -6 12 0 M110 120 q10 8 22 0" stroke="#2b4a3c" stroke-width="3"/>
+  <!-- shirt -->
+  <path d="M60 175 C90 150 150 150 180 175 L205 420 L35 420Z" fill="#9ad1ff" stroke="#9ad1ff" opacity=".85"/>
+  <path d="M120 175 L120 420" stroke="#2b4a3c" stroke-width="2.5" opacity=".6"/>
+  <!-- left arm: hand on chin -->
+  <path d="M60 190 C10 240 10 300 55 330" stroke="#c9a27e" stroke-width="22"/>
+  <!-- right arm: holding chalk toward board -->
+  <path d="M180 190 C220 220 230 260 230 300" stroke="#c9a27e" stroke-width="22"/>
+  <path d="M226 300 l8 22" stroke="#f1f1e6" stroke-width="8"/>
+  <!-- trousers -->
+  <path d="M40 420 L200 420 L205 600 L140 600 L120 460 L100 600 L35 600Z" fill="#f1f1e6" stroke="#f1f1e6" opacity=".55"/>
+  <path d="M30 600 L110 600 M130 600 L215 600" stroke="#f1f1e6" stroke-width="8"/>
+ </g>
+ <!-- question marks -->
+ <text x="1040" y="260" font-family="Caveat" font-weight="700" font-size="120" fill="#f6d365" stroke="none">?</text>
+ <text x="1420" y="520" font-family="Caveat" font-weight="700" font-size="90" fill="#ff9aa2" stroke="none">?</text>
+</g>
+<!-- chalk text -->
+<g filter="url(#chalk)">
+ <text x="90" y="135" font-family="Cabin Sketch" font-weight="700" font-size="96" fill="#f6d365">62</text>
+ <text x="250" y="105" font-family="Caveat" font-weight="700" font-size="56" fill="#f1f1e6"><tspan x="250">What underlying physics determines</tspan><tspan x="250" dy="60">when and how earthquakes start and stop?</tspan></text>
+ <text x="90" y="305" font-family="Caveat" font-weight="500" font-size="30" fill="#f1f1e6">cross-section: fault</text>
+ <text x="600" y="330" font-family="Caveat" font-weight="500" font-size="30" fill="#f1f1e6">stick ... slip ... stick ...</text>
+ <text x="640" y="620" font-family="Caveat" font-weight="700" font-size="40" fill="#f6d365">τ = μ·σ  ?</text>
+ <text x="860" y="620" font-family="Caveat" font-weight="500" font-size="30" fill="#ff9aa2">(too simple)</text>
+ <text x="90" y="620" font-family="Caveat" font-weight="500" font-size="30" fill="#f1f1e6">P</text>
+ <text x="430" y="610" font-family="Caveat" font-weight="500" font-size="30" fill="#f1f1e6">S</text>
+ <text x="700" y="790" font-family="Caveat" font-weight="500" font-size="30" fill="#f6d365">why does it STOP here?</text>
+ <text x="90" y="820" font-family="Caveat" font-weight="500" font-size="30" fill="#9ad1ff">Vashan Wright · geophysicist · UC San Diego</text>
+</g>
+<path d="M740 770 L720 740" stroke="#f6d365" stroke-width="3" filter="url(#chalk)"/>
+</svg></body></html>

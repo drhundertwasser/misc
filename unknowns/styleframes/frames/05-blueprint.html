@@ -1,0 +1,80 @@
+<!doctype html><html><head><meta charset="utf-8"><title>05 Blueprint</title>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600&family=Architects+Daughter&display=swap" rel="stylesheet">
+<style>html,body{margin:0;width:1600px;height:900px;overflow:hidden;background:#163a7a}svg{display:block}</style></head><body>
+<svg viewBox="0 0 1600 900" width="1600" height="900" xmlns="http://www.w3.org/2000/svg" font-family="Josefin Sans">
+<defs>
+ <pattern id="minor" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0 H0 V20" fill="none" stroke="#fff" stroke-width=".5" opacity=".18"/></pattern>
+ <pattern id="major" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M100 0 H0 V100" fill="none" stroke="#fff" stroke-width="1" opacity=".3"/></pattern>
+ <filter id="bp"><feTurbulence type="fractalNoise" baseFrequency=".6" numOctaves="2" seed="9"/><feColorMatrix values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .08 0"/></filter>
+ <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10z" fill="#fff"/></marker>
+</defs>
+<rect width="1600" height="900" fill="#163a7a"/>
+<rect width="1600" height="900" fill="url(#minor)"/><rect width="1600" height="900" fill="url(#major)"/>
+<rect width="1600" height="900" filter="url(#bp)"/>
+<rect x="30" y="30" width="1540" height="840" fill="none" stroke="#fff" stroke-width="2"/>
+<rect x="40" y="40" width="1520" height="820" fill="none" stroke="#fff" stroke-width="1"/>
+<g fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+ <!-- ground -->
+ <path d="M120 600 H1300"/>
+ <!-- pyramid section -->
+ <path d="M400 600 L800 200 L1200 600"/>
+ <!-- inner chambers -->
+ <path d="M700 600 L760 540 L780 540" stroke-dasharray="6 5"/>
+ <rect x="790" y="420" width="60" height="30"/>
+ <path d="M760 540 L800 450 L830 450" />
+ <rect x="780" y="500" width="40" height="22"/>
+ <!-- hypothesis A: straight external ramp -->
+ <path d="M120 600 L800 240" stroke-dasharray="14 10" opacity=".9"/>
+ <!-- hypothesis B: spiral ramp -->
+ <path d="M400 600 L1160 560 L440 520 L1120 480 L480 440 L1080 400 L520 360 L1040 320 L560 280 L1000 240 L600 240" stroke-dasharray="4 6" opacity=".8"/>
+ <!-- hypothesis C: internal ramp -->
+ <path d="M450 580 L1150 550 L470 520 L1110 490 L500 455" stroke="#9ad1ff" stroke-dasharray="10 6"/>
+ <!-- dimension: height -->
+ <path d="M340 600 V200" marker-start="url(#arr)" marker-end="url(#arr)" stroke-width="1.5"/>
+ <path d="M330 200 H800 M330 600 H400" stroke-width="1" opacity=".6"/>
+ <!-- dimension: base -->
+ <path d="M400 660 H1200" marker-start="url(#arr)" marker-end="url(#arr)" stroke-width="1.5"/>
+ <path d="M400 600 V660 M1200 600 V660" stroke-width="1" opacity=".6"/>
+ <!-- archaeologist, bottom right -->
+ <g transform="translate(1330 540)">
+  <circle cx="60" cy="60" r="28"/>
+  <path d="M24 56 C26 18 94 18 96 56 L106 60 L14 60Z" fill="#163a7a"/>
+  <path d="M46 66 q0 -7 9 -7 M68 66 q0 -7 9 -7" stroke-width="2"/>
+  <path d="M52 76 q8 5 16 0" stroke-width="2"/>
+  <circle cx="94" cy="72" r="12" fill="#163a7a"/>
+  <!-- coat -->
+  <path d="M34 92 L86 92 L112 110 L104 290 L16 290 L8 110Z"/>
+  <path d="M60 92 L60 290" stroke-width="1.5" stroke-dasharray="3 5"/>
+  <path d="M104 290 L108 330 M16 290 L12 330 M20 330 L8 340 M100 330 L116 340"/>
+  <!-- arms -->
+  <path d="M112 110 L160 150 L190 120" /><path d="M8 110 L-20 170 L-10 200"/>
+  <!-- rolled plan -->
+  <rect x="150" y="108" width="80" height="22" rx="10" transform="rotate(-50 190 119)"/>
+  <!-- tape measure on ground -->
+  <circle cx="-12" cy="214" r="13"/><path d="M-12 227 L-12 330 M-30 300 L-12 300"/>
+ </g>
+</g>
+<!-- annotations -->
+<g font-family="Architects Daughter" font-size="22" fill="#fff">
+ <text x="150" y="585" transform="rotate(-28 150 585)">A · straight ramp ?</text>
+ <text x="1180" y="580">B · spiral ramp ?</text>
+ <text x="1180" y="470" fill="#9ad1ff">C · internal ramp ?</text>
+ <text x="300" y="410" transform="rotate(-90 300 410)" text-anchor="middle">146.6 m</text>
+ <text x="800" y="650" text-anchor="middle">230.3 m</text>
+ <text x="830" y="440" font-size="16">King's chamber</text>
+ <text x="1300" y="520" font-size="20">still arguing after 4,500 yrs</text>
+</g>
+<!-- title block -->
+<g fill="none" stroke="#fff" stroke-width="2">
+ <rect x="60" y="690" width="820" height="150"/>
+ <path d="M60 735 H880 M60 790 H880 M620 690 V840 M340 790 V840"/>
+</g>
+<g fill="#fff" font-size="18" letter-spacing="3">
+ <text x="78" y="720" font-weight="600">UNKNOWN NO. 90</text>
+ <text x="640" y="720">SHEET 90 / 100</text>
+ <text x="78" y="765" font-size="24" font-weight="600" letter-spacing="2">HOW DID THE ANCIENT EGYPTIANS BUILD THE GREAT PYRAMID?</text>
+ <text x="78" y="820" font-size="14" letter-spacing="1">MARK LEHNER · ARCHAEOLOGIST</text>
+ <text x="358" y="820" font-size="14" letter-spacing="1">ANCIENT EGYPT RESEARCH ASSOC.</text>
+ <text x="640" y="820" font-size="14" letter-spacing="1">SCALE: UNKNOWN</text>
+</g>
+</svg></body></html>

@@ -1,0 +1,86 @@
+<!doctype html><html><head><meta charset="utf-8"><title>15 Comic book</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+<style>html,body{margin:0;width:1600px;height:900px;overflow:hidden;background:#fff}svg{display:block}</style></head><body>
+<svg viewBox="0 0 1600 900" width="1600" height="900" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" stroke-linecap="round">
+<defs>
+ <pattern id="dots" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="7" cy="7" r="4" fill="#d9452a"/></pattern>
+ <pattern id="dotsSky" width="12" height="12" patternUnits="userSpaceOnUse"><circle cx="6" cy="6" r="2.6" fill="#f3a35b"/></pattern>
+ <pattern id="dotsSuit" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="5" cy="5" r="1.6" fill="#9fb3c8"/></pattern>
+ <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f7c58a"/><stop offset="1" stop-color="#f1a15a"/></linearGradient>
+ <clipPath id="panel"><rect x="30" y="30" width="1540" height="840"/></clipPath>
+</defs>
+<rect width="1600" height="900" fill="#fff"/>
+<g clip-path="url(#panel)">
+ <rect x="30" y="30" width="1540" height="840" fill="url(#sky)"/>
+ <rect x="30" y="30" width="1540" height="420" fill="url(#dotsSky)"/>
+ <!-- distant sun + tiny earth -->
+ <circle cx="1350" cy="150" r="40" fill="#fff6d5" stroke="#111" stroke-width="6"/>
+ <circle cx="1180" cy="110" r="9" fill="#2a7fe0" stroke="#111" stroke-width="4"/>
+ <!-- ground -->
+ <path d="M30 560 C300 520 500 600 800 560 S1300 520 1570 580 V870 H30Z" fill="#c8502d" stroke="#111" stroke-width="7"/>
+ <path d="M30 600 C300 560 500 640 800 600 S1300 560 1570 620 V870 H30Z" fill="url(#dots)" opacity=".6"/>
+ <!-- rocks -->
+ <g fill="#a8432a" stroke="#111" stroke-width="6"><path d="M200 700 l60 -40 l80 20 l20 50 l-150 10z"/><path d="M1200 720 l50 -50 l90 10 l30 60 l-160 20z"/><path d="M1380 650 l30 -24 l50 8 l10 36 l-90 6z"/></g>
+ <!-- habitat module in distance -->
+ <g stroke="#111" stroke-width="6"><path d="M960 560 a90 60 0 0 1 180 0z" fill="#e8e8e8"/><rect x="1035" y="520" width="30" height="40" fill="#e8e8e8"/><path d="M1000 520 l0 -40 M1100 520 l0 -60" /></g>
+ <!-- cosmic rays -->
+ <g fill="#ffe14d" stroke="#111" stroke-width="6">
+  <path d="M1100 60 l-30 120 l40 -20 l-60 150 l90 -110 l-40 10 l50 -130z"/>
+  <path d="M1250 230 l-20 90 l30 -14 l-45 110 l70 -82 l-32 6 l40 -98z"/>
+  <path d="M900 40 l-26 110 l36 -18 l-54 136 l82 -100 l-36 8 l46 -118z"/>
+ </g>
+ <!-- SFX -->
+ <text x="1240" y="110" font-family="Bangers" font-size="96" fill="#ffe14d" stroke="#111" stroke-width="7" transform="rotate(-8 1240 110)" paint-order="stroke">ZZAK!</text>
+ <text x="760" y="170" font-family="Bangers" font-size="64" fill="#ff7b2e" stroke="#111" stroke-width="6" transform="rotate(6 760 170)" paint-order="stroke">KRAK</text>
+ <!-- astronaut scientist -->
+ <g transform="translate(300 230)" stroke="#111" stroke-width="7">
+  <!-- backpack -->
+  <rect x="150" y="150" width="120" height="200" rx="14" fill="#bfc9d6"/>
+  <!-- legs -->
+  <path d="M110 470 L90 640 L150 640 L160 480Z" fill="#f4f4f4"/><path d="M190 470 L200 640 L260 640 L250 480Z" fill="#f4f4f4"/>
+  <path d="M70 640 L170 640 L160 680 L60 680Z M190 640 L290 640 L300 680 L200 680Z" fill="#555"/>
+  <!-- torso -->
+  <path d="M90 220 C100 150 260 150 270 220 L290 480 L70 480Z" fill="#f4f4f4"/>
+  <path d="M90 220 C100 150 260 150 270 220 L290 480 L70 480Z" fill="url(#dotsSuit)" stroke="none"/>
+  <rect x="140" y="300" width="80" height="60" rx="8" fill="#2a7fe0"/><circle cx="160" cy="320" r="8" fill="#ff3b3b" stroke="none"/><circle cx="200" cy="320" r="8" fill="#ffe14d" stroke="none"/>
+  <!-- arms -->
+  <path d="M90 240 C30 280 30 360 60 420 L120 420" fill="none" stroke-width="40"/><path d="M90 240 C30 280 30 360 60 420 L120 420" fill="none" stroke="#f4f4f4" stroke-width="26"/>
+  <path d="M270 240 C340 280 360 340 330 420 L280 430" fill="none" stroke-width="40"/><path d="M270 240 C340 280 360 340 330 420 L280 430" fill="none" stroke="#f4f4f4" stroke-width="26"/>
+  <!-- gloves -->
+  <circle cx="110" cy="430" r="26" fill="#ff7b2e"/><circle cx="275" cy="440" r="26" fill="#ff7b2e"/>
+  <!-- dosimeter in hands -->
+  <g transform="translate(130 380)">
+   <rect x="0" y="0" width="150" height="110" rx="10" fill="#ffe14d"/>
+   <path d="M20 90 A55 55 0 0 1 130 90Z" fill="#fff"/>
+   <path d="M95 44 A55 55 0 0 1 130 90 L75 90Z" fill="#ff3b3b" stroke="none"/>
+   <path d="M75 90 L118 52" stroke-width="5"/><circle cx="75" cy="90" r="6" fill="#111"/>
+  </g>
+  <!-- helmet -->
+  <circle cx="180" cy="110" r="90" fill="#f4f4f4"/>
+  <circle cx="180" cy="110" r="66" fill="#6b3f2a"/>
+  <!-- face -->
+  <path d="M114 110 a66 66 0 0 1 132 0 l0 -30 a66 66 0 0 0 -132 0z" fill="#111" stroke="none"/>
+  <g stroke="#111" stroke-width="4"><ellipse cx="158" cy="110" rx="11" ry="14" fill="#fff"/><ellipse cx="202" cy="110" rx="11" ry="14" fill="#fff"/><circle cx="160" cy="113" r="5" fill="#111"/><circle cx="204" cy="113" r="5" fill="#111"/>
+  <path d="M146 92 q12 -8 24 0 M190 92 q12 -8 24 0" fill="none"/><path d="M162 142 q18 10 36 0" fill="none"/></g>
+  <!-- visor glass reflection -->
+  <path d="M110 70 C120 40 200 30 240 60" fill="none" stroke="#fff" stroke-width="6" opacity=".8"/>
+  <circle cx="180" cy="110" r="90" fill="none"/>
+  <!-- antenna -->
+  <path d="M250 60 L285 20" /><circle cx="288" cy="18" r="7" fill="#ff3b3b"/>
+ </g>
+ <!-- speech bubble -->
+ <g stroke="#111" stroke-width="6">
+  <path d="M660 230 L1100 230 Q1130 230 1130 260 L1130 380 Q1130 410 1100 410 L760 410 L700 470 L720 410 L660 410 Q630 410 630 380 L630 260 Q630 230 660 230Z" fill="#fff"/>
+ </g>
+ <text x="880" y="290" text-anchor="middle" font-family="Comic Neue" font-weight="700" font-size="34" fill="#111"><tspan x="880">Cosmic rays all day, every day.</tspan><tspan x="880" dy="42">Can a body take years of this</tspan><tspan x="880" dy="42">and still have children here?</tspan></text>
+ <!-- caption box -->
+ <rect x="50" y="50" width="520" height="54" fill="#ffe14d" stroke="#111" stroke-width="6"/>
+ <text x="70" y="90" font-family="Bangers" font-size="34" fill="#111" letter-spacing="1">MEANWHILE, 225 MILLION KM FROM HOME...</text>
+ <!-- title band -->
+ <rect x="30" y="760" width="1540" height="110" fill="#111"/>
+ <text x="60" y="815" font-family="Bangers" font-size="54" fill="#ffe14d" letter-spacing="2">#95</text>
+ <text x="170" y="815" font-family="Bangers" font-size="46" fill="#fff" letter-spacing="1">CAN HUMANS SURVIVE SPACE RADIATION AND SETTLE OFF EARTH?</text>
+ <text x="170" y="852" font-family="Comic Neue" font-weight="700" font-size="22" fill="#f3a35b">LINDY ELKINS-TANTON · PLANETARY SCIENTIST · UC BERKELEY SPACE SCIENCES LABORATORY</text>
+</g>
+<rect x="30" y="30" width="1540" height="840" fill="none" stroke="#111" stroke-width="10"/>
+</svg></body></html>

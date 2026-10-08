@@ -1,0 +1,76 @@
+<!doctype html><html><head><meta charset="utf-8"><title>17 Ukiyo-e woodblock</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Antique&display=swap" rel="stylesheet">
+<style>html,body{margin:0;width:1600px;height:900px;overflow:hidden;background:#efe3c6}svg{display:block}</style></head><body>
+<svg viewBox="0 0 1600 900" width="1600" height="900" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" stroke-linecap="round">
+<defs>
+ <filter id="wood"><feTurbulence type="fractalNoise" baseFrequency=".02 .6" numOctaves="2" seed="5"/><feColorMatrix values="0 0 0 0 .3 0 0 0 0 .2 0 0 0 0 .1 0 0 0 .09 0"/></filter>
+ <filter id="edge" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".03" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3"/></filter>
+ <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a8c3d8"/><stop offset=".7" stop-color="#efe3c6"/></linearGradient>
+ <pattern id="diatom" width="90" height="90" patternUnits="userSpaceOnUse"><g fill="none" stroke="#fff" stroke-width="1.2" opacity=".35"><circle cx="20" cy="20" r="9"/><circle cx="20" cy="20" r="4"/><path d="M60 60 l0 -14 M60 60 l12 7 M60 60 l-12 7 M60 60 l0 14 M60 60 l12 -7 M60 60 l-12 -7"/><circle cx="60" cy="60" r="14"/></g></pattern>
+</defs>
+<rect width="1600" height="900" fill="#efe3c6"/>
+<rect x="0" y="0" width="1600" height="560" fill="url(#skyG)"/>
+<g filter="url(#edge)">
+ <!-- distant peak -->
+ <path d="M1100 520 L1230 380 L1360 520Z" fill="#2d4f7c"/><path d="M1210 400 L1230 380 L1252 400 L1240 420 L1225 410 L1212 424Z" fill="#fff"/>
+ <!-- far sea bands -->
+ <rect x="0" y="520" width="1600" height="380" fill="#1f3f6b"/>
+ <path d="M0 560 C200 540 400 580 600 560 S1000 540 1200 565 S1500 580 1600 560 V900 H0Z" fill="#2d4f7c"/>
+ <!-- big wave body -->
+ <path d="M0 900 L0 520 C60 420 120 300 260 240 C380 190 520 150 640 190 C760 230 840 300 900 330 C920 310 950 300 985 310 C960 330 930 350 940 380 C860 380 760 400 700 450 C640 500 620 560 600 620 C560 700 500 760 420 800 C300 860 150 880 0 900Z" fill="#1f3f6b"/>
+ <!-- wave stripes (lighter blue) -->
+ <g fill="none" stroke="#a8c3d8" stroke-width="7">
+  <path d="M40 560 C120 420 260 320 420 280 C560 250 700 270 820 330"/>
+  <path d="M80 640 C160 500 300 400 460 360 C600 330 720 350 830 400"/>
+  <path d="M140 720 C220 600 340 500 500 460 C620 430 720 440 800 470"/>
+  <path d="M220 790 C300 690 400 610 520 580 C600 560 660 570 700 590"/>
+ </g>
+ <g fill="none" stroke="#fff" stroke-width="4" opacity=".9">
+  <path d="M60 600 C140 460 280 360 440 320"/><path d="M110 680 C190 540 330 440 490 400"/><path d="M180 760 C260 640 380 540 540 500"/>
+ </g>
+ <!-- plankton pattern in the water -->
+ <path d="M0 900 L0 520 C60 420 120 300 260 240 C380 190 520 150 640 190 C760 230 840 300 900 330 C920 310 950 300 985 310 C960 330 930 350 940 380 C860 380 760 400 700 450 C640 500 620 560 600 620 C560 700 500 760 420 800 C300 860 150 880 0 900Z" fill="url(#diatom)"/>
+ <!-- foam claws along the crest -->
+ <g fill="#fff">
+  <path d="M640 190 C700 160 760 170 800 210 C780 200 760 215 775 240 C740 225 710 240 720 270 C690 250 660 262 668 292 C640 275 612 288 616 316 C600 290 580 280 560 290 C580 260 600 230 640 190Z"/>
+  <path d="M820 300 C850 280 890 290 905 320 C890 318 880 332 890 348 C870 340 850 352 858 372 C840 360 820 370 822 390 C806 370 790 360 772 364 C790 340 800 320 820 300Z"/>
+  <circle cx="610" cy="330" r="10"/><circle cx="560" cy="300" r="8"/><circle cx="700" cy="290" r="9"/><circle cx="760" cy="265" r="7"/><circle cx="830" cy="400" r="8"/><circle cx="880" cy="360" r="6"/><circle cx="935" cy="385" r="7"/><circle cx="520" cy="320" r="6"/>
+  <!-- spray dots -->
+  <circle cx="960" cy="330" r="5"/><circle cx="990" cy="350" r="4"/><circle cx="1010" cy="320" r="3"/><circle cx="880" cy="250" r="5"/><circle cx="840" cy="230" r="4"/>
+ </g>
+ <!-- keyline on wave -->
+ <path d="M0 520 C60 420 120 300 260 240 C380 190 520 150 640 190 C760 230 840 300 900 330" fill="none" stroke="#2b2b2b" stroke-width="3"/>
+ <!-- boat in the trough with scientist lowering a plankton net -->
+ <g transform="translate(1010 600)">
+  <path d="M-120 0 C-80 40 160 40 230 0 L250 -30 C180 0 -80 0 -140 -40Z" fill="#8c6a4a" stroke="#2b2b2b" stroke-width="3"/>
+  <path d="M-120 0 C-80 40 160 40 230 0" fill="none" stroke="#2b2b2b" stroke-width="3"/>
+  <path d="M-60 -10 L-60 -40 M0 -10 L0 -40 M60 -10 L60 -40 M120 -10 L120 -40" stroke="#2b2b2b" stroke-width="3"/>
+  <!-- scientist -->
+  <path d="M30 -40 C20 -110 110 -110 100 -40Z" fill="#c23b22" stroke="#2b2b2b" stroke-width="3"/>
+  <circle cx="65" cy="-120" r="24" fill="#f1d9b5" stroke="#2b2b2b" stroke-width="3"/>
+  <path d="M41 -126 C45 -160 85 -160 89 -126 C80 -140 50 -140 41 -126Z M89 -126 C100 -140 102 -118 96 -112Z" fill="#2b2b2b"/>
+  <path d="M55 -118 l0 1 M75 -118 l0 1" stroke="#2b2b2b" stroke-width="3"/><path d="M58 -106 q7 4 14 0" stroke="#2b2b2b" stroke-width="2" fill="none"/>
+  <!-- arm lowering net over the side -->
+  <path d="M95 -80 L150 -50 L190 -20" stroke="#2b2b2b" stroke-width="12" fill="none"/><path d="M95 -80 L150 -50 L190 -20" stroke="#c23b22" stroke-width="7" fill="none"/>
+  <!-- rope and plankton net: ring + cone -->
+  <path d="M190 -20 L240 40" stroke="#2b2b2b" stroke-width="2.5"/>
+  <ellipse cx="258" cy="56" rx="30" ry="12" fill="none" stroke="#2b2b2b" stroke-width="3"/>
+  <path d="M228 56 C240 110 300 130 330 150 C300 120 290 90 288 56" fill="#f1d9b5" stroke="#2b2b2b" stroke-width="3" opacity=".9"/>
+  <path d="M240 80 L300 95 M248 100 L310 118" stroke="#2b2b2b" stroke-width="1.5"/>
+ </g>
+ <!-- small foreground wave in front of boat -->
+ <path d="M900 700 C980 650 1100 660 1200 700 C1280 730 1380 720 1450 690 L1600 720 V900 H900Z" fill="#1f3f6b"/>
+ <path d="M900 700 C980 650 1100 660 1200 700 C1280 730 1380 720 1450 690" fill="none" stroke="#fff" stroke-width="5"/>
+ <path d="M920 760 C1000 720 1100 730 1200 770 M1250 790 C1320 760 1420 750 1500 780" fill="none" stroke="#a8c3d8" stroke-width="6"/>
+</g>
+<!-- title cartouche -->
+<rect x="1160" y="60" width="380" height="250" fill="#efe3c6" stroke="#2b2b2b" stroke-width="3"/>
+<rect x="1168" y="68" width="364" height="234" fill="none" stroke="#2b2b2b" stroke-width="1.5"/>
+<text x="1190" y="120" font-family="Zen Antique" font-size="30" fill="#2b2b2b"><tspan x="1190">Will climate change</tspan><tspan x="1190" dy="40">increase or reduce</tspan><tspan x="1190" dy="40">the ocean's biological</tspan><tspan x="1190" dy="40">productivity?</tspan></text>
+<text x="1190" y="290" font-family="Zen Antique" font-size="17" fill="#2b2b2b">Daniel Sigman · geoscientist · Princeton</text>
+<!-- red seal -->
+<rect x="60" y="60" width="90" height="170" fill="#c23b22"/>
+<text x="105" y="140" text-anchor="middle" font-family="Zen Antique" font-size="56" fill="#efe3c6">26</text>
+<text x="105" y="200" text-anchor="middle" font-family="Zen Antique" font-size="20" fill="#efe3c6">of 100</text>
+<rect width="1600" height="900" filter="url(#wood)"/>
+</svg></body></html>

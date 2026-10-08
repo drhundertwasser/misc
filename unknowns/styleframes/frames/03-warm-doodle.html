@@ -1,0 +1,82 @@
+<!doctype html><html><head><meta charset="utf-8"><title>03 Warm mid-century doodle</title>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<style>html,body{margin:0;width:1600px;height:900px;overflow:hidden;background:#f3eee4}svg{display:block}</style></head><body>
+<svg viewBox="0 0 1600 900" width="1600" height="900" xmlns="http://www.w3.org/2000/svg">
+<defs>
+ <filter id="wobble" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".018" numOctaves="2" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/></filter>
+ <filter id="pencil" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".6" numOctaves="2" seed="3" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1.2 1.25" result="a"/><feComposite in="SourceGraphic" in2="a" operator="in"/></filter>
+</defs>
+<rect width="1600" height="900" fill="#f3eee4"/>
+<!-- flat color fills, offset slightly from the ink (mid-century misregistration) -->
+<g filter="url(#pencil)" opacity=".95">
+ <!-- A: shirt -->
+ <path d="M300 520 C330 480 400 480 430 520 L448 640 L286 640Z" fill="#d97757" transform="translate(5 -4)"/>
+ <!-- A: hair blob -->
+ <circle cx="362" cy="420" r="30" fill="#5b6b8c" transform="translate(3 2)"/>
+ <!-- microscope body -->
+ <path d="M600 640 L600 560 C600 520 585 495 560 480 C545 470 540 455 560 445 L575 445 C600 460 630 520 625 640Z" fill="#8a9a5b" transform="translate(-4 3)"/><rect x="505" y="625" width="130" height="15" rx="4" fill="#8a9a5b" transform="translate(-4 3)"/>
+ <!-- B: trousers -->
+ <path d="M1040 630 C1060 600 1140 600 1150 650 L1160 720 L1000 720Z" fill="#5b6b8c" transform="translate(5 3)"/>
+ <!-- box -->
+ <rect x="1190" y="640" width="140" height="96" fill="#d97757" transform="translate(-4 4)"/>
+ <!-- thought-bubble warmth -->
+ <ellipse cx="640" cy="330" rx="135" ry="78" fill="#f8dcc8" transform="translate(4 3)"/>
+ <!-- sun-ish blob -->
+ <circle cx="1380" cy="150" r="55" fill="#e9c46a" transform="translate(-3 2)"/>
+</g>
+<!-- ink lines -->
+<g fill="none" stroke="#2b2a28" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" filter="url(#wobble)">
+ <!-- desk -->
+ <path d="M150 640 L700 640 M190 640 L180 780 M660 640 L672 780"/>
+ <!-- Figure A, seated, looking into microscope -->
+ <path d="M300 520 C330 480 400 480 430 520 L448 640 L286 640Z"/>
+ <circle cx="372" cy="455" r="40"/>
+ <path d="M340 430 C330 395 365 380 390 395 C405 380 430 400 420 425" /> <!-- hair scribble -->
+ <path d="M352 438 C340 445 345 460 352 462 M335 445 C322 450 328 470 338 470" stroke-width="2.6"/>
+ <circle cx="384" cy="452" r="2.6" fill="#2b2a28"/><circle cx="402" cy="450" r="2.6" fill="#2b2a28"/>
+ <path d="M390 470 Q398 476 406 470" stroke-width="2.6"/>
+ <path d="M430 540 C470 530 500 540 520 565" /> <!-- arm to microscope -->
+ <path d="M300 540 C270 560 265 600 285 640" /> <!-- back arm -->
+ <!-- chair -->
+ <path d="M280 640 L270 790 M450 640 L460 790 M265 700 L465 700"/>
+ <!-- microscope -->
+ <path d="M600 640 L600 560 C600 520 585 495 560 480 C545 470 540 455 560 445 L575 445 C600 460 630 520 625 640Z"/>
+ <rect x="505" y="625" width="130" height="15" rx="4"/>
+ <path d="M560 470 L515 410 M500 418 L532 395 M520 490 L548 528 M510 580 L590 580 L590 590 L510 590Z M552 540 L560 578"/>
+ <circle cx="612" cy="560" r="9"/>
+ <!-- thought bubble -->
+ <circle cx="440" cy="415" r="6"/><circle cx="478" cy="392" r="10"/>
+ <path d="M640 330 m-135 0 c0 -100 270 -100 270 0 c0 100 -270 100 -270 0z"/>
+ <!-- doodles inside bubble: spiral, star, question mark -->
+ <path d="M555 335 c0 -22 32 -22 32 0 c0 16 -22 16 -22 2 c0 -8 10 -8 10 -2" stroke="#d97757" stroke-width="3"/>
+ <path d="M625 300 l8 18 l20 2 l-15 13 l5 20 l-18 -11 l-18 11 l5 -20 l-15 -13 l20 -2z" stroke="#d97757" stroke-width="3"/>
+ <path d="M690 305 c0 -18 36 -18 36 0 c0 14 -18 10 -18 30 M708 350 l0 1" stroke="#d97757" stroke-width="4"/>
+ <path d="M570 370 q20 -12 40 0 t40 0 t40 0" stroke="#d97757" stroke-width="3"/>
+ <!-- Figure B, crouched, peering into box -->
+ <path d="M1040 630 C1060 600 1140 600 1150 650 L1160 720 L1000 720Z"/>
+ <path d="M1060 630 C1030 560 1070 520 1110 540 C1140 555 1140 600 1130 625"/>
+ <circle cx="1120" cy="505" r="38"/>
+ <path d="M1090 480 C1095 455 1130 450 1150 470 C1160 460 1170 480 1158 495" />
+ <circle cx="1140" cy="500" r="2.6" fill="#2b2a28"/><circle cx="1154" cy="508" r="2.6" fill="#2b2a28"/>
+ <path d="M1146 526 q6 4 12 -2" stroke-width="2.6"/>
+ <path d="M1150 560 C1190 570 1215 600 1220 640" /> <!-- arm lifting lid -->
+ <path d="M1010 720 L1005 790 M1150 720 L1160 790"/>
+ <!-- box + lid -->
+ <rect x="1190" y="640" width="140" height="96"/>
+ <path d="M1190 640 L1245 570 L1385 570 L1330 640" />
+ <!-- things escaping the box -->
+ <path d="M1270 620 c-10 -30 10 -60 0 -90 c-8 -25 12 -45 2 -70" stroke="#d97757" stroke-width="3"/>
+ <path d="M1300 600 c20 -20 10 -50 30 -70 c15 -15 5 -35 25 -45" stroke="#5b6b8c" stroke-width="3"/>
+ <path d="M1235 600 c-5 -30 -30 -40 -25 -75" stroke="#8a9a5b" stroke-width="3"/>
+ <path d="M1345 470 l5 12 l13 1 l-10 9 l3 13 l-11 -7 l-11 7 l3 -13 l-10 -9 l13 -1z" stroke="#d97757" stroke-width="2.8"/>
+ <circle cx="1225" cy="505" r="5" stroke="#5b6b8c"/><circle cx="1325" cy="520" r="4" stroke="#8a9a5b"/>
+ <!-- floor line -->
+ <path d="M80 790 L1520 790" stroke-width="2.6"/>
+ <!-- sun -->
+ <circle cx="1380" cy="150" r="55"/>
+ <path d="M1380 70 l0 -22 M1380 230 l0 22 M1300 150 l-22 0 M1460 150 l22 0 M1324 94 l-15 -15 M1436 206 l15 15 M1436 94 l15 -15 M1324 206 l-15 15" stroke-width="3"/>
+</g>
+<text x="90" y="100" font-family="Newsreader" font-weight="500" font-size="30" fill="#d97757" letter-spacing="4">No. 6</text>
+<text x="90" y="190" font-family="Newsreader" font-weight="400" font-size="86" fill="#2b2a28">What is curiosity?</text>
+<text x="90" y="245" font-family="Newsreader" font-style="italic" font-size="30" fill="#5b6b8c">Victor Ambros, molecular biologist · UMass Chan Medical School</text>
+</svg></body></html>

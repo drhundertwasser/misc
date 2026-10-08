@@ -1,0 +1,81 @@
+<!doctype html><html><head><meta charset="utf-8"><title>13 Isometric diorama</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+<style>html,body{margin:0;width:1600px;height:900px;overflow:hidden;background:#e9eef7}svg{display:block}</style></head><body>
+<svg id="s" viewBox="0 0 1600 900" width="1600" height="900" xmlns="http://www.w3.org/2000/svg">
+<defs>
+ <filter id="sh" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="18" stdDeviation="14" flood-color="#2b3a67" flood-opacity=".18"/></filter>
+ <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="10" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+ <linearGradient id="glass" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffffff" stop-opacity=".55"/><stop offset=".5" stop-color="#cfe6ff" stop-opacity=".25"/><stop offset="1" stop-color="#ffffff" stop-opacity=".5"/></linearGradient>
+</defs>
+<rect width="1600" height="900" fill="#e9eef7"/>
+<g id="scene"></g>
+<text x="80" y="140" font-family="Poppins" font-weight="700" font-size="90" fill="#ff6b8a">76</text>
+<text x="80" y="215" font-family="Poppins" font-weight="500" font-size="40" fill="#2b3a67"><tspan x="80">Will we learn how to use stem cells</tspan><tspan x="80" dy="50">to grow new, healthy organs that can</tspan><tspan x="80" dy="50">replace old or diseased ones?</tspan></text>
+<text x="80" y="390" font-family="Poppins" font-weight="400" font-size="22" fill="#6b7a99">Paul Knoepfler · cell biologist · University of California, Davis</text>
+<script>
+const NS='http://www.w3.org/2000/svg'; const scene=document.getElementById('scene');
+const OX=1010, OY=400, C=Math.cos(Math.PI/6), S=Math.sin(Math.PI/6);
+const P=(x,y,z)=>[OX+(x-y)*C, OY+(x+y)*S-z];
+const poly=(pts,fill,extra='')=>{const e=document.createElementNS(NS,'path');e.setAttribute('d','M'+pts.map(p=>p.join(' ')).join(' L ')+'Z');e.setAttribute('fill',fill);if(extra)e.setAttribute('style',extra);scene.appendChild(e);return e;};
+const shade=(hex,f)=>{const n=parseInt(hex.slice(1),16);const r=Math.min(255,Math.round(((n>>16)&255)*f)),g=Math.min(255,Math.round(((n>>8)&255)*f)),b=Math.min(255,Math.round((n&255)*f));return '#'+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1);};
+// box at (x,y,z) with size w (along x), d (along y), h (up)
+function box(x,y,z,w,d,h,col,style=''){
+  poly([P(x,y,z+h),P(x+w,y,z+h),P(x+w,y+d,z+h),P(x,y+d,z+h)],shade(col,1.12),style);   // top
+  poly([P(x,y+d,z),P(x+w,y+d,z),P(x+w,y+d,z+h),P(x,y+d,z+h)],shade(col,.92),style);     // front-left
+  poly([P(x+w,y,z),P(x+w,y+d,z),P(x+w,y+d,z+h),P(x+w,y,z+h)],shade(col,.72),style);     // front-right
+}
+// floor tile
+poly([P(-40,-40,0),P(420,-40,0),P(420,420,0),P(-40,420,0)],'#d6def0');
+poly([P(-40,420,0),P(420,420,0),P(420,420,-30),P(-40,420,-30)],'#b9c4de'); poly([P(420,-40,0),P(420,420,0),P(420,420,-30),P(420,-40,-30)],'#a7b3d1');
+// back wall shelves (along x, at y=-40)
+box(0,-40,0,380,30,10,'#c7d0e6'); box(0,-40,120,380,30,8,'#c7d0e6'); box(0,-40,230,380,30,8,'#c7d0e6');
+// flasks on shelves
+const flaskCols=['#8fd3c7','#ffb3c6','#ffe08a','#b3c6ff','#8fd3c7'];
+for(let i=0;i<5;i++){box(25+i*72,-32,130,36,18,34,flaskCols[i]);box(25+i*72+10,-32,164,16,18,18,shade(flaskCols[i],1.05));}
+for(let i=0;i<4;i++){box(40+i*90,-32,240,40,20,30,flaskCols[(i+2)%5]);}
+// bench
+box(40,120,0,340,150,80,'#ffffff'); box(40,120,80,340,150,10,'#dfe6f3');
+// monitor on bench (left)
+box(60,160,90,16,80,70,'#2b3a67'); poly([P(76,166,100),P(76,234,100),P(76,234,152),P(76,166,152)],'#8fd3ff');
+const heartIcon=document.createElementNS(NS,'text'); heartIcon.setAttribute('x',P(76,200,126)[0]); heartIcon.setAttribute('y',P(76,200,126)[1]+8); heartIcon.setAttribute('font-size','26'); heartIcon.setAttribute('text-anchor','middle'); heartIcon.setAttribute('fill','#ff6b8a'); heartIcon.textContent='♥'; scene.appendChild(heartIcon);
+// pump box + tube
+box(300,140,90,60,50,40,'#b3c6ff');
+// bioreactor jar: cylinder centre (200,195) r 60, h 150 from z 90
+const cx=200,cy=195,r=58,z0=90,h=150; const tp=P(cx,cy,z0+h), bot=P(cx,cy,z0);
+const rx=r*C*2*0.5*1.0, ry=r*S*2*0.5*1.0; // iso ellipse approx
+const el=(cxs,cys,fill,extra='')=>{const e=document.createElementNS(NS,'ellipse');e.setAttribute('cx',cxs);e.setAttribute('cy',cys);e.setAttribute('rx',r*1.0);e.setAttribute('ry',r*0.5);e.setAttribute('fill',fill);if(extra)e.setAttribute('style',extra);scene.appendChild(e);return e;};
+// liquid body
+const body=document.createElementNS(NS,'path'); body.setAttribute('d',`M${bot[0]-r} ${bot[1]} L${bot[0]-r} ${tp[1]+20} A${r} ${r*0.5} 0 0 0 ${bot[0]+r} ${tp[1]+20} L${bot[0]+r} ${bot[1]} A${r} ${r*0.5} 0 0 1 ${bot[0]-r} ${bot[1]}Z`); body.setAttribute('fill','#ffc2d1'); body.setAttribute('opacity','.85'); scene.appendChild(body);
+// heart inside
+const hx=bot[0], hy=(bot[1]+tp[1])/2+10;
+const heart=document.createElementNS(NS,'path'); heart.setAttribute('d',`M${hx} ${hy+28} C${hx-40} ${hy} ${hx-30} ${hy-40} ${hx} ${hy-16} C${hx+30} ${hy-40} ${hx+40} ${hy} ${hx} ${hy+28}Z`); heart.setAttribute('fill','#ff4d6d'); heart.setAttribute('filter','url(#glow)'); scene.appendChild(heart);
+// vessels on heart
+const v=document.createElementNS(NS,'path'); v.setAttribute('d',`M${hx-6} ${hy-14} c-8 8 -4 20 2 26 M${hx+8} ${hy-10} c6 10 2 20 -4 26`); v.setAttribute('stroke','#b3001b'); v.setAttribute('stroke-width','2'); v.setAttribute('fill','none'); scene.appendChild(v);
+// bubbles
+[[-20,-30],[15,-50],[-5,-70],[25,-15]].forEach(([dx,dy],i)=>{const b=document.createElementNS(NS,'circle');b.setAttribute('cx',hx+dx);b.setAttribute('cy',hy+dy);b.setAttribute('r',3+i);b.setAttribute('fill','#fff');b.setAttribute('opacity','.8');scene.appendChild(b);});
+// glass body overlay
+const glass=document.createElementNS(NS,'path'); glass.setAttribute('d',body.getAttribute('d').split(`${tp[1]+20}`).join(`${tp[1]}`)); glass.setAttribute('fill','url(#glass)'); glass.setAttribute('stroke','#9fb3d9'); glass.setAttribute('stroke-width','2'); scene.appendChild(glass);
+el(tp[0],tp[1],'#eaf2ff','stroke:#9fb3d9;stroke-width:2');
+// lid
+el(tp[0],tp[1]-6,'#b3c6ff'); el(tp[0],tp[1]-10,'#c9d6ff');
+// tube from pump to jar
+const tube=document.createElementNS(NS,'path'); const pp=P(330,165,130); tube.setAttribute('d',`M${pp[0]} ${pp[1]} C${pp[0]-20} ${pp[1]-80} ${tp[0]+40} ${tp[1]-90} ${tp[0]+10} ${tp[1]-12}`); tube.setAttribute('stroke','#8fd3c7'); tube.setAttribute('stroke-width','6'); tube.setAttribute('fill','none'); tube.setAttribute('stroke-linecap','round'); scene.appendChild(tube);
+// scientist in front-left of bench (standing at (-10, 330))
+const sx=400, sy=170;
+box(sx,sy,0,34,26,70,'#2b3a67');            // legs/trousers
+box(sx-4,sy-4,70,42,34,110,'#ffffff');      // lab coat
+box(sx+4,sy+4,180,26,18,18,'#2b3a67');      // neck? use as collar
+// arms: one reaching toward the jar
+box(sx-60,sy+6,120,60,16,16,'#ffffff'); box(sx-78,sy+6,120,18,16,16,'#f1c9a5');
+box(sx+34,sy+8,110,18,16,60,'#ffffff');
+// head
+const hp=P(sx+17,sy+13,228); const head=document.createElementNS(NS,'circle'); head.setAttribute('cx',hp[0]); head.setAttribute('cy',hp[1]); head.setAttribute('r','26'); head.setAttribute('fill','#f1c9a5'); scene.appendChild(head);
+const hair=document.createElementNS(NS,'path'); hair.setAttribute('d',`M${hp[0]-26} ${hp[1]} a26 26 0 0 1 52 0 l0 -6 a26 26 0 0 0 -52 0Z M${hp[0]-26} ${hp[1]-2} C${hp[0]-30} ${hp[1]-40} ${hp[0]+30} ${hp[1]-40} ${hp[0]+26} ${hp[1]-2} C${hp[0]+18} ${hp[1]-14} ${hp[0]-10} ${hp[1]-18} ${hp[0]-26} ${hp[1]-2}Z`); hair.setAttribute('fill','#1a1a2e'); scene.appendChild(hair);
+const bun=document.createElementNS(NS,'circle'); bun.setAttribute('cx',hp[0]-20); bun.setAttribute('cy',hp[1]-24); bun.setAttribute('r','11'); bun.setAttribute('fill','#1a1a2e'); scene.appendChild(bun);
+const face=document.createElementNS(NS,'path'); face.setAttribute('d',`M${hp[0]+2} ${hp[1]-2} l0 1 M${hp[0]+14} ${hp[1]-2} l0 1 M${hp[0]+4} ${hp[1]+10} q6 5 12 0`); face.setAttribute('stroke','#1a1a2e'); face.setAttribute('stroke-width','3'); face.setAttribute('stroke-linecap','round'); face.setAttribute('fill','none'); scene.appendChild(face);
+// goggles
+const gog=document.createElementNS(NS,'path'); gog.setAttribute('d',`M${hp[0]-6} ${hp[1]-4} a8 8 0 1 0 16 0 a8 8 0 1 0 -16 0 M${hp[0]+10} ${hp[1]-4} a8 8 0 1 0 16 0 a8 8 0 1 0 -16 0`); gog.setAttribute('stroke','#2b3a67'); gog.setAttribute('stroke-width','2.5'); gog.setAttribute('fill','#cfe6ff'); gog.setAttribute('fill-opacity','.6'); scene.appendChild(gog);
+// soft shadow under everything
+scene.setAttribute('filter','url(#sh)');
+</script>
+</svg></body></html>

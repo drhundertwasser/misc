@@ -1,0 +1,58 @@
+<!doctype html><html><head><meta charset="utf-8"><title>06 Pixel art</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>html,body{margin:0;width:1600px;height:900px;overflow:hidden;background:#5fa8e8}svg{display:block;position:absolute;top:0;left:0}
+.t{position:absolute;font-family:'Press Start 2P';color:#1d2f4b;line-height:1.7;text-shadow:4px 4px 0 #ffffff}
+</style></head><body>
+<svg id="px" viewBox="0 0 80 45" width="1600" height="900" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"></svg>
+<div class="t" style="left:60px;top:48px;font-size:52px">36</div>
+<div class="t" style="left:60px;top:130px;font-size:30px">HOW DO ANTS WORK<br>TOGETHER TO PRODUCE<br>THE COLLECTIVE<br>BEHAVIOR OF COLONIES?</div>
+<div class="t" style="left:60px;top:830px;font-size:14px;color:#fff;text-shadow:3px 3px 0 #1d2f4b">DEBORAH GORDON · BIOLOGIST · STANFORD UNIVERSITY</div>
+<script>
+const P={'.':'#5fa8e8','S':'#8fc8f2','Y':'#ffd84a','W':'#ffffff','G':'#d9a066','g':'#b8793f','C':'#3f8f3f','c':'#2f6f2f','A':'#1a1a1a',
+ 'K':'#8d5524','E':'#1a1a1a','H':'#e8d6a0','h':'#7a4a1a','T':'#e04b4b','P':'#2d4f8a','B':'#222222','m':'#333333','M':'#bfe9ff','R':'#1a1a1a','D':'#5c3a1e'};
+const W=80,H=45; const grid=[]; for(let y=0;y<H;y++){grid.push([]);for(let x=0;x<W;x++)grid[y].push(y<24?'.':y<28?'S':'G');}
+// seeded speckle on ground
+let seed=7; const rnd=()=> (seed=(seed*16807)%2147483647)/2147483647;
+for(let y=29;y<H;y++)for(let x=0;x<W;x++) if(rnd()<.035) grid[y][x]='g';
+const put=(x0,y0,rows)=>rows.forEach((r,j)=>[...r].forEach((ch,i)=>{if(ch!==' '&&ch!=='_')grid[y0+j][x0+i]=ch;}));
+// sun
+put(64,4,["__YYYY__","_YYYYYY_","YYYYYYYY","YYYYYYYY","YYYYYYYY","YYYYYYYY","_YYYYYY_","__YYYY__"]);
+// clouds
+put(44,3,["___WWW______","_WWWWWWW____","WWWWWWWWWW__","__WWWWWW____"]);
+put(12,19,["__WWWW___","_WWWWWWW_","WWWWWWWWW"]);
+// cactus
+put(1,17,["____CC____","____CC____","____CC____","CC__CC__CC","CC__CC__CC","CC__CC__CC","CCCCCC__CC","____CCCCCC","____CC____","____CC____","____CC____","____CC____","____CC____","____CC____","____CC____","____CC____"]);
+// anthill with hole
+put(63,23,["______ggg______","____ggggggg____","__ggggggggggg__","_gggggg_gggggg_","gggggggBBgggggg","ggggggggggggggg"]);
+// scientist kneeling with magnifier (facing right); wide-brim hat, brown skin, red shirt, blue trousers
+put(40,9,[
+"______HHHHHH______",
+"_____HHHHHHHH_____",
+"____HHHHHHHHHH____",
+"__HHHHHHHHHHHHHH__",
+"______KKKKKK______",
+"______KKEKKE______",
+"______KKKKKK______",
+"_______KKKK_______",
+"_____TTTTTTTT_____",
+"____TTTTTTTTTT____",
+"___TTTTTTTTTTKKK__",
+"___TTTTTTTTTTK_mmm",
+"___TTTTTTTTT__mMMM",
+"___TTTTTTTTT__mMMM",
+"___PPPPPPPPP__mMMM",
+"___PPPPPPPPPP__mmm",
+"___PPPP___PPPP_h__",
+"___PPPP___PPPP____",
+"__BBBB___BBBB_____"]);
+// ant trail: discrete ants marching from the hill, past the magnifier, off to the left
+const ant=["A_A_A","_AAA_","A_A_A"];
+const trail=[[66,29],[60,30],[54,30],[48,31],[42,31],[36,32],[30,33],[24,33],[18,34],[12,34],[6,35]];
+trail.forEach(([x,y])=>put(x,y,ant));
+// a few ants right under the magnifying glass
+put(55,27,ant); put(50,28,ant);
+const svg=document.getElementById('px'); let out='';
+for(let y=0;y<H;y++)for(let x=0;x<W;x++) out+=`<rect x="${x}" y="${y}" width="1" height="1" fill="${P[grid[y][x]]}"/>`;
+svg.innerHTML=out;
+</script>
+</body></html>

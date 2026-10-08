@@ -1,0 +1,65 @@
+<!doctype html><html><head><meta charset="utf-8"><title>08 Watercolor</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500;1,600&display=swap" rel="stylesheet">
+<style>html,body{margin:0;width:1600px;height:900px;overflow:hidden;background:#fbf8f1}svg{display:block}.m{mix-blend-mode:multiply}</style></head><body>
+<svg viewBox="0 0 1600 900" width="1600" height="900" xmlns="http://www.w3.org/2000/svg">
+<defs>
+ <filter id="wash" x="-30%" y="-30%" width="160%" height="160%"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="4" seed="5" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="40" result="d"/><feGaussianBlur in="d" stdDeviation="1.5"/></filter>
+ <filter id="wash2" x="-30%" y="-30%" width="160%" height="160%"><feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="3" seed="12" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="28" result="d"/><feGaussianBlur in="d" stdDeviation="1"/></filter>
+ <filter id="soft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="14"/></filter>
+ <filter id="paper"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="1"/><feColorMatrix values="0 0 0 0 .55 0 0 0 0 .45 0 0 0 0 .3 0 0 0 .09 0"/></filter>
+ <filter id="ink" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".03" numOctaves="2" seed="8" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3"/></filter>
+</defs>
+<rect width="1600" height="900" fill="#fbf8f1"/>
+<!-- light shafts -->
+<g filter="url(#soft)" opacity=".5"><polygon points="900,0 1000,0 1300,900 1050,900" fill="#f6e7a8"/><polygon points="1150,0 1220,0 1600,700 1600,900 1500,900" fill="#f6e7a8"/></g>
+<!-- far canopy haze -->
+<g class="m" filter="url(#wash)" opacity=".45"><ellipse cx="1150" cy="260" rx="420" ry="200" fill="#b7d48a"/><ellipse cx="500" cy="200" rx="380" ry="170" fill="#cfe0b0"/></g>
+<!-- trunk and branches -->
+<g class="m" filter="url(#wash2)" transform="translate(150 0)">
+ <path d="M700 900 L730 600 C740 500 735 420 760 330 L800 330 C790 450 800 560 820 640 L850 900Z" fill="#8c6a4a" opacity=".85"/>
+ <path d="M745 470 C650 430 560 400 470 330 L480 310 C580 360 680 400 760 430Z" fill="#8c6a4a" opacity=".8"/>
+ <path d="M790 400 C900 380 1000 330 1120 230 L1135 250 C1030 350 920 410 800 430Z" fill="#8c6a4a" opacity=".8"/>
+ <path d="M760 330 C740 250 760 170 820 120 L835 135 C790 190 775 260 790 330Z" fill="#8c6a4a" opacity=".8"/>
+ <path d="M700 900 L735 640 L760 660 L735 900Z" fill="#6b4c32" opacity=".5"/>
+</g>
+<!-- canopy blobs -->
+<g class="m" filter="url(#wash)">
+ <ellipse cx="470" cy="300" rx="190" ry="120" fill="#5b8c5a" opacity=".75"/>
+ <ellipse cx="380" cy="380" rx="150" ry="90" fill="#2f6b4f" opacity=".6"/>
+ <ellipse cx="1120" cy="200" rx="230" ry="130" fill="#6fa36b" opacity=".75"/>
+ <ellipse cx="1250" cy="300" rx="170" ry="100" fill="#2f6b4f" opacity=".55"/>
+ <ellipse cx="830" cy="110" rx="220" ry="100" fill="#8ab86b" opacity=".8"/>
+ <ellipse cx="640" cy="170" rx="160" ry="80" fill="#4f8f5f" opacity=".6"/>
+ <ellipse cx="960" cy="330" rx="140" ry="70" fill="#b7d48a" opacity=".7"/>
+ <ellipse cx="560" cy="470" rx="120" ry="60" fill="#8ab86b" opacity=".6"/>
+</g>
+<!-- drips -->
+<g class="m" filter="url(#wash2)" opacity=".5"><path d="M455 410 l0 90 M1225 395 l0 70 M870 200 l0 60" stroke="#2f6b4f" stroke-width="8" stroke-linecap="round"/></g>
+<!-- rope -->
+<path d="M1110 350 L1110 640" stroke="#6b4c32" stroke-width="3" fill="none" filter="url(#ink)"/>
+<!-- climber on rope -->
+<g transform="translate(150 0)" filter="url(#ink)" fill="none" stroke="#3b3a36" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+ <g class="m" stroke="none" filter="url(#wash2)">
+  <path d="M935 520 L985 520 L995 600 L925 600Z" fill="#d9573b" opacity=".8"/>
+  <circle cx="960" cy="490" r="22" fill="#e8a05a" opacity=".9"/>
+  <path d="M940 600 L990 600 L998 660 L932 660Z" fill="#3b5b7a" opacity=".8"/>
+ </g>
+ <circle cx="960" cy="490" r="22"/><path d="M938 486 C942 462 978 462 982 486" /><path d="M938 486 L982 486"/>
+ <path d="M935 520 C945 510 975 510 985 520 L995 600 L925 600Z"/>
+ <path d="M940 600 L930 665 M980 600 L992 665 M925 665 L945 668 M985 665 L1005 666"/>
+ <path d="M985 530 L1010 500 L1040 470 M935 530 L915 560 L925 590"/>
+ <!-- harness + clipboard -->
+ <path d="M930 575 L990 575" stroke-width="3"/><rect x="898" y="560" width="28" height="36" transform="rotate(-10 912 578)"/>
+ <path d="M960 455 L960 350" stroke-width="2"/>
+</g>
+<!-- sensor on branch, bird -->
+<g filter="url(#ink)" fill="none" stroke="#3b3a36" stroke-width="2" stroke-linecap="round"><rect x="1250" y="215" width="30" height="40" rx="4"/><path d="M1265 215 L1265 195"/><path d="M560 250 q12 -12 24 0 q12 -12 24 0"/><path d="M1240 150 q12 -12 24 0 q12 -12 24 0"/></g>
+<!-- floating leaves -->
+<g class="m" filter="url(#wash2)" opacity=".7"><path d="M300 560 q20 -30 50 -10 q-20 30 -50 10z" fill="#8ab86b"/><path d="M1300 560 q20 -30 50 -10 q-20 30 -50 10z" fill="#e8a05a"/><path d="M200 700 q20 -30 50 -10 q-20 30 -50 10z" fill="#d9573b"/></g>
+<!-- text -->
+<g class="m" filter="url(#wash)"><circle cx="150" cy="700" r="60" fill="#8ab86b" opacity=".7"/></g>
+<text x="150" y="722" text-anchor="middle" font-family="Cormorant Garamond" font-weight="600" font-size="64" fill="#2f4f3a">28</text>
+<text x="240" y="690" font-family="Cormorant Garamond" font-style="italic" font-weight="500" font-size="50" fill="#2f4f3a"><tspan x="240">How does the three-dimensional structure</tspan><tspan x="240" dy="54">of a forest canopy create its own climate?</tspan></text>
+<text x="240" y="800" font-family="Cormorant Garamond" font-weight="500" font-size="26" fill="#6b6a5f">Nalini Nadkarni · biologist · University of Utah</text>
+<rect width="1600" height="900" filter="url(#paper)"/>
+</svg></body></html>

@@ -1,0 +1,73 @@
+<!doctype html><html><head><meta charset="utf-8"><title>01 Paper cutout</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@500;700&display=swap" rel="stylesheet">
+<style>html,body{margin:0;width:1600px;height:900px;overflow:hidden;background:#15213f}svg{display:block}</style></head><body>
+<svg viewBox="0 0 1600 900" width="1600" height="900" xmlns="http://www.w3.org/2000/svg">
+<defs>
+ <filter id="paper" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="7" stdDeviation="5" flood-color="#000" flood-opacity=".38"/></filter>
+ <filter id="paperSoft" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#000" flood-opacity=".3"/></filter>
+ <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .07 0"/></filter>
+</defs>
+<!-- sky layers -->
+<rect width="1600" height="900" fill="#15213f"/>
+<ellipse cx="1150" cy="80" rx="900" ry="520" fill="#1c2c55" filter="url(#paperSoft)"/>
+<ellipse cx="1250" cy="40" rx="620" ry="380" fill="#24396c" filter="url(#paperSoft)"/>
+<!-- stars -->
+<g fill="#f7e7a1" filter="url(#paperSoft)">
+ <polygon points="1210,120 1222,152 1256,154 1229,174 1238,208 1210,188 1182,208 1191,174 1164,154 1198,152"/>
+ <polygon transform="translate(950 230) scale(.55)" points="0,-40 12,-8 46,-6 19,14 28,48 0,28 -28,48 -19,14 -46,-6 -12,-8"/>
+ <polygon transform="translate(1420 300) scale(.7)" points="0,-40 12,-8 46,-6 19,14 28,48 0,28 -28,48 -19,14 -46,-6 -12,-8"/>
+ <polygon transform="translate(1080 360) scale(.4)" points="0,-40 12,-8 46,-6 19,14 28,48 0,28 -28,48 -19,14 -46,-6 -12,-8"/>
+ <polygon transform="translate(1500 130) scale(.45)" points="0,-40 12,-8 46,-6 19,14 28,48 0,28 -28,48 -19,14 -46,-6 -12,-8"/>
+ <circle cx="860" cy="120" r="6"/><circle cx="1330" cy="420" r="5"/><circle cx="1010" cy="60" r="4"/><circle cx="1560" cy="470" r="4"/><circle cx="760" cy="300" r="4"/>
+</g>
+<!-- moon -->
+<g filter="url(#paper)"><circle cx="1380" cy="190" r="70" fill="#fff3c4"/><circle cx="1405" cy="170" r="62" fill="#1c2c55"/></g>
+<!-- hills -->
+<path d="M0 640 Q300 520 600 610 T1200 600 T1600 640 V900 H0Z" fill="#1f5d5a" filter="url(#paper)"/>
+<path d="M0 720 Q250 650 520 720 T1000 710 T1600 740 V900 H0Z" fill="#2f8a73" filter="url(#paper)"/>
+<path d="M0 820 Q400 760 800 820 T1600 810 V900 H0Z" fill="#4fae88" filter="url(#paper)"/>
+<!-- radio dish -->
+<g filter="url(#paper)">
+ <rect x="1180" y="560" width="26" height="190" fill="#c9cfd6"/>
+ <rect x="1130" y="740" width="126" height="22" rx="6" fill="#aab2bc"/>
+ <g transform="translate(1195 560) rotate(-35)">
+  <path d="M-150 0 A150 150 0 0 1 150 0 L150 40 A170 170 0 0 0 -150 40Z" fill="#f4f1ea"/>
+  <path d="M-150 0 A150 150 0 0 1 150 0" fill="none" stroke="#d8d2c4" stroke-width="10"/>
+  <line x1="0" y1="0" x2="0" y2="-150" stroke="#c9cfd6" stroke-width="12"/><circle cx="0" cy="-150" r="18" fill="#ff9d5c"/>
+ </g>
+</g>
+<!-- scientist, seated on hill -->
+<g filter="url(#paper)">
+ <!-- camp stool shadow / blanket -->
+ <ellipse cx="930" cy="745" rx="110" ry="22" fill="#2a6655"/>
+ <!-- legs -->
+ <path d="M880 700 L980 712 L985 745 L905 752Z" fill="#3a3f6b"/>
+ <!-- body / cardigan -->
+ <path d="M860 610 Q900 580 950 600 L980 712 L870 705Z" fill="#d9573b"/>
+ <!-- arm holding mug -->
+ <path d="M950 640 L1010 660 L1020 690 L990 700 L945 680Z" fill="#d9573b"/>
+ <rect x="1005" y="672" width="40" height="38" rx="6" fill="#f4f1ea"/><circle cx="1050" cy="690" r="12" fill="none" stroke="#f4f1ea" stroke-width="8"/>
+ <!-- head -->
+ <circle cx="900" cy="565" r="52" fill="#6b3e26"/>
+ <circle cx="865" cy="530" r="34" fill="#d8d8d0"/> <!-- grey bun -->
+ <path d="M850 560 Q900 505 955 560 Q930 540 900 540 Q870 540 850 560Z" fill="#d8d8d0"/>
+ <!-- glasses -->
+ <circle cx="915" cy="570" r="14" fill="none" stroke="#f7e7a1" stroke-width="5"/><circle cx="945" cy="568" r="14" fill="none" stroke="#f7e7a1" stroke-width="5"/>
+ <!-- gaze line -->
+</g>
+<!-- small telescope on tripod -->
+<g filter="url(#paperSoft)">
+ <line x1="760" y1="640" x2="730" y2="760" stroke="#aab2bc" stroke-width="10"/><line x1="760" y1="640" x2="790" y2="760" stroke="#aab2bc" stroke-width="10"/><line x1="760" y1="640" x2="760" y2="760" stroke="#aab2bc" stroke-width="10"/>
+ <rect x="700" y="605" width="150" height="34" rx="8" transform="rotate(-28 775 622)" fill="#f7e7a1"/>
+</g>
+<!-- text card -->
+<g filter="url(#paper)">
+ <rect x="70" y="90" width="620" height="400" rx="18" fill="#f8f2e4"/>
+ <rect x="70" y="90" width="620" height="14" rx="7" fill="#d9573b"/>
+</g>
+<text x="110" y="200" font-family="Fredoka" font-weight="700" font-size="96" fill="#d9573b">99</text>
+<text x="110" y="290" font-family="Fredoka" font-weight="600" font-size="56" fill="#15213f"><tspan x="110">Are we alone</tspan><tspan x="110" dy="64">in the universe?</tspan></text>
+<text x="110" y="430" font-family="Nunito" font-weight="700" font-size="24" fill="#2f8a73">Robert Hazen</text>
+<text x="110" y="462" font-family="Nunito" font-weight="500" font-size="20" fill="#52607a">Staff scientist, Carnegie Institution for Science</text>
+<rect width="1600" height="900" filter="url(#grain)" opacity=".9"/>
+</svg></body></html>
