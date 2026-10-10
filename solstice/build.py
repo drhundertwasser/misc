@@ -89,56 +89,101 @@ def render_title(path, length):
         return im
     pipe_frames(path, int(length*FPS), frame)
 
-def render_tilt(path, length):
+def draw_globe(im, ex, ey, R, ang, sun_dir, fade, with_rings=True):
+    """Engraved globe. ang = axis tilt (radians, clockwise from vertical). sun_dir = unit vector from globe toward the sun."""
+    c = lambda rgb, a=1.0: mul(rgb, a*fade)
+    d = ImageDraw.Draw(im)
+    d.ellipse((ex-R, ey-R, ex+R, ey+R), fill=c(INK_BLUE))
+    def rot(x, y): return (ex + x*math.cos(ang) - y*math.sin(ang), ey + x*math.sin(ang) + y*math.cos(ang))
+    for k in (-0.75, -0.4, 0.4, 0.75):
+        d.line([rot(R*k*math.cos(p), R*math.sin(p)) for p in np.linspace(-math.pi/2, math.pi/2, 40)], fill=c(IVORY, 0.35), width=1)
+    for k in (-0.6, -0.3, 0.3, 0.6):
+        yk = R*k; xr = R*math.sqrt(1-k*k); d.line([rot(-xr, yk), rot(xr, yk)], fill=c(IVORY, 0.28), width=1)
+    d.line([rot(-R, 0), rot(R, 0)], fill=c(IVORY, 0.6), width=2)
+    # night side: the half facing away from the sun, hatched
+    yy, xx = np.mgrid[0:H, 0:W]
+    inside = (xx-ex)**2 + (yy-ey)**2 <= R*R
+    away = (xx-ex)*(-sun_dir[0]) + (yy-ey)*(-sun_dir[1]) > 0
+    night = Image.fromarray(((inside & away)*255).astype(np.uint8))
+    ov = Image.new("RGBA", (W, H), (0, 0, 0, 0)); od = ImageDraw.Draw(ov)
+    od.rectangle((0, 0, W, H), fill=(4, 5, 10, int(150*fade)))
+    for k in range(-R*2, R*2, 11): od.line((ex+k, ey-R-10, ex+k+R, ey+R+10), fill=(4, 5, 10, int(230*fade)), width=2)
+    ov.putalpha(Image.fromarray((np.asarray(ov.split()[3]).astype(np.uint16) * np.asarray(night) // 255).astype(np.uint8)))
+    im2 = im.convert("RGBA"); im2.alpha_composite(ov); im.paste(im2.convert("RGB")); d = ImageDraw.Draw(im)
+    d.ellipse((ex-R, ey-R, ex+R, ey+R), outline=c(IVORY, 0.9), width=2)
+    if with_rings: d.ellipse((ex-R-14, ey-R-14, ex+R+14, ey+R+14), outline=c(IVORY, 0.25), width=1)
+    d.line([rot(0, -R-60), rot(0, R+60)], fill=c(IVORY), width=3)
+    return d, rot
+
+def render_angle(path, length):
+    """Greek beat: the sun's yearly path (ecliptic) tilted ~24 degrees to the sky's equator, drawn like an old star chart."""
     bg = paper()
     def frame(t):
         im = bg.copy(); d = ImageDraw.Draw(im)
         fade = ease(t/1.2) * (1 - ease((t-(length-1.2))/1.2))
         c = lambda rgb, a=1.0: mul(rgb, a*fade)
-        sx, sy = 330, H//2
-        glow = Image.new("RGB", (W, H), (0, 0, 0)); gd = ImageDraw.Draw(glow)
-        gd.ellipse((sx-280, sy-280, sx+280, sy+280), fill=c((50, 36, 10))); glow = glow.filter(ImageFilter.GaussianBlur(100))
-        im = Image.fromarray(np.clip(np.asarray(im).astype(np.int16) + np.asarray(glow), 0, 255).astype(np.uint8)); d = ImageDraw.Draw(im)
-        # rays of light drawn as fine engraved lines
-        for y in range(-300, 301, 50):
-            d.line((sx+170, sy+y, W-150, sy+y), fill=c(GOLD, 0.16), width=1)
-        woodcut_sun(d, sx, sy, 100, GOLD, rays=28, a=fade)
-        # earth: engraved globe with meridians, tilting from 0 to 23.4 degrees between t=1.5 and 4.5
-        ex, ey, R = 1330, H//2, 230
-        tilt = ease((t-1.5)/3.0); ang = math.radians(23.4*tilt)
-        d.ellipse((ex-R, ey-R, ex+R, ey+R), fill=c(INK_BLUE))
-        def rot(x, y): return (ex + x*math.cos(ang) - y*math.sin(ang), ey + x*math.sin(ang) + y*math.cos(ang))
-        # meridians and parallels, rotated with the axis
-        for k in (-0.75, -0.4, 0.4, 0.75):
-            pts = [rot(R*k*math.cos(p), R*math.sin(p)) for p in np.linspace(-math.pi/2, math.pi/2, 40)]
-            d.line(pts, fill=c(IVORY, 0.35), width=1)
-        for k in (-0.6, -0.3, 0.3, 0.6):
-            yk = R*k; xr = R*math.sqrt(1-k*k)
-            d.line([rot(-xr, yk), rot(xr, yk)], fill=c(IVORY, 0.28), width=1)
-        d.line([rot(-R, 0), rot(R, 0)], fill=c(IVORY, 0.6), width=2)   # equator
-        # night side: dark wash plus diagonal hatching, clipped to the half facing away from the sun
-        night = Image.new("L", (W, H), 0); nd = ImageDraw.Draw(night)
-        nd.ellipse((ex-R, ey-R, ex+R, ey+R), fill=255); nd.rectangle((0, 0, ex, H), fill=0)
-        ov = Image.new("RGBA", (W, H), (0, 0, 0, 0)); od = ImageDraw.Draw(ov)
-        od.rectangle((0, 0, W, H), fill=(4, 5, 10, int(150*fade)))
-        for k in range(-R*2, R*2, 11):
-            od.line((ex+k, ey-R-10, ex+k+R, ey+R+10), fill=(4, 5, 10, int(230*fade)), width=2)
-        ov.putalpha(Image.fromarray((np.asarray(ov.split()[3]).astype(np.uint16) * np.asarray(night) // 255).astype(np.uint8)))
-        im = im.convert("RGBA"); im.alpha_composite(ov); im = im.convert("RGB"); d = ImageDraw.Draw(im)
-        d.ellipse((ex-R, ey-R, ex+R, ey+R), outline=c(IVORY, 0.9), width=2)
-        d.ellipse((ex-R-14, ey-R-14, ex+R+14, ey+R+14), outline=c(IVORY, 0.25), width=1)
-        # axis, reference, arc with ticks
-        d.line([rot(0, -R-80), rot(0, R+80)], fill=c(IVORY), width=3)
-        d.line((ex, ey-R-80, ex, ey-R-16), fill=c(IVORY, 0.35), width=1)
-        if ang > 0.01:
-            d.arc((ex-R-50, ey-R-50, ex+R+50, ey+R+50), start=270, end=270+math.degrees(ang), fill=c(GOLD), width=3)
-            for deg in range(0, int(math.degrees(ang))+1, 5):
-                th = math.radians(270+deg); r1, r2 = R+44, R+58
-                d.line((ex+r1*math.cos(th), ey+r1*math.sin(th), ex+r2*math.cos(th), ey+r2*math.sin(th)), fill=c(GOLD, 0.8), width=1)
+        cx, cy, R = W//2 + 120, H//2 - 20, 300
+        # celestial sphere
+        d.ellipse((cx-R, cy-R, cx+R, cy+R), outline=c(IVORY, 0.5), width=2)
+        d.ellipse((cx-R-16, cy-R-16, cx+R+16, cy+R+16), outline=c(IVORY, 0.18), width=1)
+        for k in (-0.5, 0.5):   # faint meridians
+            d.line([(cx + R*k*math.cos(p), cy + R*math.sin(p)) for p in np.linspace(-math.pi/2, math.pi/2, 40)], fill=c(IVORY, 0.15), width=1)
+        # equator (ivory) and ecliptic (gold) crossing at 24 degrees
+        d.line((cx-R, cy, cx+R, cy), fill=c(IVORY, 0.8), width=2)
+        d.text((cx+R+18, cy), "sky's equator", font=F(SERIF_I, 28), fill=c(IVORY, 0.7), anchor="lm")
+        a = math.radians(24*ease((t-1.0)/2.5))
+        ex0, ey0 = cx - R*math.cos(a), cy - R*math.sin(a); ex1, ey1 = cx + R*math.cos(a), cy + R*math.sin(a)
+        d.line((ex0, ey0, ex1, ey1), fill=c(GOLD), width=3)
+        d.text((ex0-18, ey0), "the sun's path", font=F(SERIF_I, 28), fill=c(GOLD, 0.9), anchor="rm")
+        if a > 0.01:
+            d.arc((cx-120, cy-120, cx+120, cy+120), start=0, end=math.degrees(a), fill=c(GOLD, 0.9), width=2)
+            for deg in range(0, int(math.degrees(a))+1, 4):
+                th = math.radians(deg); d.line((cx+112*math.cos(th), cy+112*math.sin(th), cx+128*math.cos(th), cy+128*math.sin(th)), fill=c(GOLD, 0.8), width=1)
+        # the sun travels down the path to its lowest point: the winter solstice
+        s = ease((t-3.5)/4.0); px, py = cx + (R-30)*s*math.cos(a), cy + (R-30)*s*math.sin(a)
+        woodcut_sun(d, px, py, 18, GOLD, rays=12, a=fade*ease((t-3.2)/0.8))
         lab = ease((t-4.0)/1.0)
-        d.text((ex+80, ey-R-130), f"{23.4*tilt:.1f}°", font=F(SERIF, 64), fill=c(GOLD, lab))
-        d.text((ex, ey+R+74), "The northern half leans away from the sun", font=F(SERIF_I, 32), fill=c(IVORY, 0.8*lab), anchor="ma")
-        d.text((ex, ey+R+120), "December solstice", font=F(SERIF, 32), fill=c(IVORY, lab), anchor="ma")
+        d.text((cx+150, cy-90), f"{24*ease((t-1.0)/2.5):.0f}°", font=F(SERIF, 64), fill=c(GOLD, lab))
+        lab2 = ease((t-7.5)/1.0)
+        d.text((px, py+44), "winter solstice: the sun's lowest point", font=F(SERIF_I, 26), fill=c(IVORY, 0.8*lab2), anchor="ma")
+        # left: the gnomon and its shadow
+        gx, gy = 260, H//2 + 170
+        d.line((gx, gy, gx, gy-260), fill=c(IVORY), width=5)
+        d.polygon([(gx-3, gy), (gx-250, gy+12), (gx-250, gy)], fill=c(IVORY, 0.45))
+        d.line((gx-260, gy+8, gx+120, gy+8), fill=c(IVORY, 0.5), width=1)
+        d.text((gx-60, gy+40), "a post, and the length of its shadow", font=F(SERIF_I, 26), fill=c(IVORY, 0.7*lab), anchor="ma")
+        d.text((W//2, H-200), "Measured in Alexandria, about 240 BC", font=F(SERIF, 30), fill=c(IVORY, 0.9*lab2), anchor="ma")
+        return im
+    pipe_frames(path, int(length*FPS), frame)
+
+def render_orbit(path, length):
+    """Copernicus beat: the Earth circles the sun with its axis fixed in space; in December the north leans away."""
+    bg = paper()
+    def frame(t):
+        im = bg.copy(); d = ImageDraw.Draw(im)
+        fade = ease(t/1.2) * (1 - ease((t-(length-1.2))/1.2))
+        c = lambda rgb, a=1.0: mul(rgb, a*fade)
+        sx, sy = W//2, H//2 - 40; ax, ay = 640, 110     # orbit seen nearly edge-on
+        glow = Image.new("RGB", (W, H), (0, 0, 0)); gd = ImageDraw.Draw(glow)
+        gd.ellipse((sx-200, sy-200, sx+200, sy+200), fill=c((50, 36, 10))); glow = glow.filter(ImageFilter.GaussianBlur(90))
+        im = Image.fromarray(np.clip(np.asarray(im).astype(np.int16) + np.asarray(glow), 0, 255).astype(np.uint8)); d = ImageDraw.Draw(im)
+        d.ellipse((sx-ax, sy-ay, sx+ax, sy+ay), outline=c(IVORY, 0.45), width=2)
+        woodcut_sun(d, sx, sy, 48, GOLD, rays=20, a=fade)
+        for lab_, tth, dx, dy, anc in (("June", 0, 40, -40, "lm"), ("September", math.pi/2, 0, 56, "mm"), ("December", math.pi, -100, -70, "rm"), ("March", -math.pi/2, 0, -50, "mm")):
+            gx, gy = sx + ax*math.cos(tth), sy + ay*math.sin(tth)
+            d.ellipse((gx-5, gy-5, gx+5, gy+5), fill=c(IVORY, 0.5))
+            d.text((gx+dx, gy+dy), lab_, font=F(SERIF_I, 26), fill=c(IVORY, 0.6), anchor=anc)
+        # Earth travels from June (right) along the near side to December (left) between t=1.5 and 7.5
+        u = ease((t-1.5)/6.0); th = math.pi*u
+        ex, ey = sx + ax*math.cos(th), sy + ay*math.sin(th)
+        R = 62 + 10*math.sin(th)
+        v = (sx-ex, sy-ey); n = math.hypot(*v); sun_dir = (v[0]/n, v[1]/n)
+        ang = math.radians(-23.4)                         # the axis keeps pointing the same way all year: north leans left
+        dd, rot = draw_globe(im, int(ex), int(ey), int(R), ang, sun_dir, fade, with_rings=False)
+        d = ImageDraw.Draw(im)
+        lab = ease((t-7.5)/1.0)
+        d.text((W//2, H-215), "The axis stays fixed in space.  In December the north leans away from the sun.", font=F(SERIF_I, 30), fill=c(IVORY, 0.9*lab), anchor="ma")
+        d.text((W//2, H-170), "23.4°   ·   Copernicus, 1543", font=F(SERIF, 32), fill=c(GOLD, lab), anchor="ma")
         return im
     pipe_frames(path, int(length*FPS), frame)
 
@@ -191,7 +236,9 @@ def main():
 
     # shots: give fixed-length code cards (title, end) their time first, then split the rest of the
     # segment's slot evenly among the other shots (generated shots whose file is missing are skipped)
-    FIXED = {"title": 9.0, "end": TAIL}
+    FIXED = {"title": 8.0, "end": TAIL}
+    for sh in film.SHOTS:
+        if sh.get("card") in FIXED: sh[sh["card"]] = True
     shots = []
     for s in segs:
         mine = [sh for sh in film.SHOTS if sh["seg"] == s["id"]]
@@ -214,7 +261,7 @@ def main():
         if sh.get("kind") == "code":
             path = os.path.join(OUT, sh["id"] + ".mp4"); need = sh["L"] + (0 if sh is shots[-1] else XF)
             if not os.path.exists(path) or abs(dur(path) - need) > 0.2:
-                (render_title if sh.get("title") else render_tilt if sh.get("tilt") else render_end)(path, need)
+                dict(title=render_title, angle=render_angle, orbit=render_orbit, end=render_end)[sh["card"]](path, need)
             sh["path"] = path
         else:
             sh["path"] = os.path.join(A, sh["id"] + ".mp4")
@@ -279,14 +326,12 @@ def main():
     def at(shot_id, plus=0.0): return by_id[shot_id]["start"] + plus if shot_id in by_id else None
     cues = [
         ("wind",  0.5, 0.35, 48.0),                      # (sfx, start, volume, max length)
-        ("drum",  seg_at["s2"]["start"] - 0.3, 0.8, 6),
-        ("drum",  at("v05", 3.0), 0.5, 6),
-        ("fire",  at("v17"), 0.45, 10),
-        ("fire",  at("v19"), 0.5, 10),
-        ("wind",  at("v20"), 0.3, 20),
-        ("bell",  seg_at["s6"]["start"] + seg_at["s6"]["ndur"] - 1.0, 0.6, 6),
-        ("crowd", at("v23"), 0.5, 10),
-        ("rise",  at("v26"), 0.7, 8),
+        ("drum",  at("w03", 1.0), 0.7, 6),
+        ("drum",  at("v05", 2.5), 0.5, 6),
+        ("wind",  at("w09"), 0.3, 20),
+        ("bell",  at("w11", 0.5), 0.55, 6),
+        ("crowd", at("w14"), 0.5, 10),
+        ("rise",  at("w16"), 0.7, 8),
     ]
     for j, (sid, st, vol, mx) in enumerate(cues):
         p = os.path.join(A, f"sfx_{sid}.mp3")
