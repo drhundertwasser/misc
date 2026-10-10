@@ -1,0 +1,6 @@
+out/*.png
+out/t??.mp4
+out/cap_*.png
+out/graph.txt
+assets/check_*.png
+gen*.log
