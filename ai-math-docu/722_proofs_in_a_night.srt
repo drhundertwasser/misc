@@ -1,0 +1,363 @@
+1
+00:00:01,200 --> 00:00:07,509
+On the evening of October sixth, twenty twenty-six, OpenAI quietly posted a folder to the internet.
+
+2
+00:00:07,559 --> 00:00:14,254
+Inside were seven hundred and twenty-two mathematical manuscripts, written by an artificial intelligence.
+
+3
+00:00:14,304 --> 00:00:17,016
+Some mathematicians called it jaw-dropping.
+
+4
+00:00:17,066 --> 00:00:19,714
+Others called it a demonstration of power.
+
+5
+00:00:19,764 --> 00:00:24,661
+This is a short guide to what happened, what was claimed, and why it matters.
+
+6
+00:00:27,011 --> 00:00:28,513
+Here is the shape of it.
+
+7
+00:00:28,563 --> 00:00:34,075
+OpenAI gave an unreleased internal model roughly four thousand open research problems.
+
+8
+00:00:34,125 --> 00:00:34,916
+Not homework.
+
+9
+00:00:34,966 --> 00:00:36,210
+Not contest puzzles.
+
+10
+00:00:36,260 --> 00:00:41,578
+Questions that human experts had tried and failed to settle, sometimes for decades.
+
+11
+00:00:41,628 --> 00:00:52,056
+The model's successful outputs were sorted into three hundred seventy-two families of related results, and written up as seven hundred and twenty-two manuscripts.
+
+12
+00:00:52,106 --> 00:01:00,206
+OpenAI says each result cost, on average, about three hours of the heaviest thinking compute that its ChatGPT Pro tier offers.
+
+13
+00:01:00,256 --> 00:01:05,056
+The repository is public, free to read, and released under an open license.
+
+14
+00:01:07,406 --> 00:01:11,317
+The obvious question is whether any of this is actually correct.
+
+15
+00:01:11,367 --> 00:01:15,648
+A proof written by a machine could be nonsense dressed up in notation.
+
+16
+00:01:15,698 --> 00:01:18,247
+That is where a tool called Lean comes in.
+
+17
+00:01:18,297 --> 00:01:24,867
+Lean is a proof assistant: a program that will only accept a proof if every single logical step checks out.
+
+18
+00:01:24,917 --> 00:01:28,828
+As the mathematician Kevin Buzzard put it, you cannot fool Lean.
+
+19
+00:01:28,878 --> 00:01:33,592
+About forty-two percent of the headline results come with a Lean certificate.
+
+20
+00:01:33,642 --> 00:01:36,438
+For those, the logic has been machine-checked.
+
+21
+00:01:36,488 --> 00:01:42,317
+The rest have not been formalized, and OpenAI itself warns that some of them could have issues.
+
+22
+00:01:42,367 --> 00:01:43,369
+One more wrinkle.
+
+23
+00:01:43,419 --> 00:01:48,814
+In a few cases, what Lean verified is a weaker statement than the headline in the paper.
+
+24
+00:01:48,864 --> 00:01:52,897
+So a green checkmark is not always a checkmark on the whole claim.
+
+25
+00:01:55,247 --> 00:01:57,898
+Now to the result everyone is talking about.
+
+26
+00:01:57,948 --> 00:02:06,122
+The Riemann Hypothesis is a hundred-and-sixty-seven-year-old question about prime numbers: two, three, five, seven, eleven, and so on.
+
+27
+00:02:06,172 --> 00:02:08,393
+Primes look random, but they are not.
+
+28
+00:02:08,443 --> 00:02:18,029
+There is a hidden rhythm to how they thin out along the number line, and that rhythm is controlled by a mathematical object called the Riemann zeta function.
+
+29
+00:02:18,079 --> 00:02:21,098
+The zeta function has special points called zeros.
+
+30
+00:02:21,148 --> 00:02:26,867
+Riemann guessed in eighteen fifty-nine that every one of those zeros sits exactly on one line.
+
+31
+00:02:26,917 --> 00:02:30,488
+If he was right, we understand the primes almost perfectly.
+
+32
+00:02:30,538 --> 00:02:35,337
+It is one of the seven Millennium Prize problems, with a million dollar bounty.
+
+33
+00:02:37,687 --> 00:02:39,227
+Picture a vertical strip.
+
+34
+00:02:39,277 --> 00:02:43,234
+Riemann said all the zeros lie on the center line, at one half.
+
+35
+00:02:43,284 --> 00:02:49,913
+For over a century, the best anyone could prove was much weaker: no zeros at the right-hand edge, at one.
+
+36
+00:02:49,963 --> 00:02:52,712
+Everything in between was unknown territory.
+
+37
+00:02:52,762 --> 00:02:58,182
+OpenAI's model claims to have proved there are no zeros to the right of seven-eighths.
+
+38
+00:02:58,232 --> 00:03:02,316
+A second manuscript pushes a related argument to eleven-twelfths.
+
+39
+00:03:02,366 --> 00:03:04,606
+That is nowhere near Riemann's line.
+
+40
+00:03:04,656 --> 00:03:10,776
+But it is the first time that boundary has moved in a meaningful way since the eighteen hundreds.
+
+41
+00:03:10,826 --> 00:03:21,144
+Hector Pasten, a number theorist in Chile, told Scientific American that the quasi-Riemann hypothesis is, in his words, way more than enough for many applications.
+
+42
+00:03:21,194 --> 00:03:29,031
+Online, analytic number theorists debated whether this ranks above or below the Prime Number Theorem of eighteen ninety-six.
+
+43
+00:03:29,081 --> 00:03:32,466
+Either way, if it holds, it is Fields Medal territory.
+
+44
+00:03:34,816 --> 00:03:38,734
+And Riemann is only one family out of three hundred seventy-two.
+
+45
+00:03:38,784 --> 00:03:46,360
+In computer science, the model claims a faster way to multiply matrices, the operation that powers almost all of modern AI.
+
+46
+00:03:46,410 --> 00:03:51,321
+One researcher joked that the language models are trying to speed themselves up.
+
+47
+00:03:51,371 --> 00:04:01,613
+In number theory, it extended Hilbert's tenth problem, settled a famous question about Siegel zeros, and proved a conjecture of Paul Erdős on arithmetic progressions.
+
+48
+00:04:01,663 --> 00:04:10,541
+In geometry, it claims the four-dimensional Kakeya conjecture, one dimension beyond the result that earned Hong Wang a Fields Medal this summer.
+
+49
+00:04:10,591 --> 00:04:22,570
+In physics, it claims to solve a warm-up version of the Yang-Mills mass gap problem, which a Harvard physicist called groundbreaking and comprehensible, while calling a companion paper horrible.
+
+50
+00:04:22,620 --> 00:04:24,802
+Some of these will survive scrutiny.
+
+51
+00:04:24,852 --> 00:04:25,608
+Some may not.
+
+52
+00:04:25,658 --> 00:04:30,134
+Several have already been retracted after outside experts found mistakes.
+
+53
+00:04:32,484 --> 00:04:36,301
+So why are many mathematicians angry rather than celebrating?
+
+54
+00:04:36,351 --> 00:04:46,824
+In September, twenty-five Fields Medalists, including Terence Tao, signed an open letter saying the goals of AI companies and of mathematics were severely misaligned.
+
+55
+00:04:46,874 --> 00:04:52,212
+Solving famous problems for publicity, they argued, is not the same as understanding.
+
+56
+00:04:52,262 --> 00:05:00,073
+The day after the release, a group calling itself the Association for Human Mathematics published a statement on Tao's blog.
+
+57
+00:05:00,123 --> 00:05:03,940
+Mathematicians did not ask for this work to be done, it said.
+
+58
+00:05:03,990 --> 00:05:09,454
+Releasing seven hundred files at once is not scholarship, but a demonstration of power.
+
+59
+00:05:09,504 --> 00:05:12,751
+It urged mathematicians to stop working with OpenAI.
+
+60
+00:05:12,801 --> 00:05:15,223
+Notice what the statement does not say.
+
+61
+00:05:15,273 --> 00:05:17,632
+It does not claim any result is wrong.
+
+62
+00:05:17,682 --> 00:05:24,224
+The fight is about process, credit, and who gets to set the pace of a four-thousand-year-old discipline.
+
+63
+00:05:26,574 --> 00:05:28,122
+Others see it differently.
+
+64
+00:05:28,172 --> 00:05:41,025
+Kevin Buzzard, who leads a major effort to formalize mathematics, argued before the release that OpenAI should simply dump its theorems into the open, and that keeping them secret would be closer to censorship.
+
+65
+00:05:41,075 --> 00:05:49,442
+Experts quoted in Scientific American called the batch jaw-dropping, and said some results could have won top research prizes a year ago.
+
+66
+00:05:49,492 --> 00:05:51,347
+And there is a practical point.
+
+67
+00:05:51,397 --> 00:05:52,699
+The proofs are public.
+
+68
+00:05:52,749 --> 00:05:55,894
+Anyone can read them, check them, and build on them.
+
+69
+00:05:55,944 --> 00:06:05,540
+Within days, outsiders had re-run the Lean check on the quasi-Riemann result, and one group extended the matrix multiplication bound further than OpenAI did.
+
+70
+00:06:07,890 --> 00:06:10,598
+Why should anyone outside mathematics care?
+
+71
+00:06:10,648 --> 00:06:16,306
+Because mathematics is the cleanest possible test of whether a machine can really reason.
+
+72
+00:06:16,356 --> 00:06:17,396
+There is no spin.
+
+73
+00:06:17,446 --> 00:06:21,949
+A proof is either right or it is wrong, and a computer can check which.
+
+74
+00:06:21,999 --> 00:06:32,851
+This release suggests that a single AI system, running one fixed procedure for a few hours, can now produce research-level results across twenty different fields at once.
+
+75
+00:06:32,901 --> 00:06:34,583
+The bottleneck has flipped.
+
+76
+00:06:34,633 --> 00:06:37,020
+Generating candidate answers is cheap.
+
+77
+00:06:37,070 --> 00:06:41,830
+Reading, checking, and understanding them is now the scarce human resource.
+
+78
+00:06:41,880 --> 00:06:45,998
+And the hardest questions turn out not to be mathematical at all.
+
+79
+00:06:46,048 --> 00:06:47,024
+Who gets credit?
+
+80
+00:06:47,074 --> 00:06:49,910
+How fast should a field be allowed to change?
+
+81
+00:06:49,960 --> 00:06:56,002
+And who benefits when a private company can do, overnight, what a community did over a century?
+
+82
+00:06:58,352 --> 00:07:00,548
+What happens next will take months.
+
+83
+00:07:00,598 --> 00:07:04,847
+Mathematicians are working through the repository family by family.
+
+84
+00:07:04,897 --> 00:07:06,772
+Some claims will be confirmed.
+
+85
+00:07:06,822 --> 00:07:08,761
+Some will be quietly withdrawn.
+
+86
+00:07:08,811 --> 00:07:17,809
+The Advisory Group on Mathematics and A.I., hosted at the Institute for Advanced Study, is trying to write rules for how this should be done.
+
+87
+00:07:17,859 --> 00:07:19,605
+For now, one thing is clear.
+
+88
+00:07:19,655 --> 00:07:24,033
+A boundary that had not moved since the eighteen hundreds just moved.
+
+89
+00:07:24,083 --> 00:07:27,819
+The argument over who moved it, and how, is only beginning.
+
+90
+00:07:30,169 --> 00:07:31,890
+Sources are listed here.
+
+91
+00:07:31,940 --> 00:07:33,367
+Thanks for watching.
