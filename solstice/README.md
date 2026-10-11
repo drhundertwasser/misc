@@ -20,6 +20,26 @@ Version 2 (`v2/film_v2.py`): one sunrise across seven thousand years, six places
 Version 1 (`v1/film_v1.py`): fourteen places and a festival montage. Both videos are in git history.
 
 
+## Working rules (from the director)
+
+- **Cost approval.** Before any generation batch, state the estimated cost and wait for approval. Default to small samples:
+  a few shots to establish the look, not the whole film.
+- **Spielberg Face.** The signature shot is a tight close-up at eye level, face filling the frame, eyes locked just above and
+  beside the lens on something unseen, lips slightly parted, almost no movement, a slow push-in or a locked camera, long lens
+  with the background crushed to blur. The unseen thing is present only as light arriving on the face, reflected in the eyes.
+  Expressions stay held back: awe with fear underneath for children, held-in relief for elders.
+- **Video grammar for those moments.** When shots go to video, prompt the camera, lens and lighting that go with the technique:
+  slow dolly-in on a long lens, eye-level, shallow focus, handheld steadiness rather than drift, light that grows on the face
+  over several seconds, breath drifting as the only other motion, the face still.
+- **Look.** 35mm film: grain, halation, muted colors, light leaks, lens flare where the light source allows. Nothing clean,
+  nothing glossy, no video-game or render look. People must not look modern, clean or cartoonish: real skin, wind-burn,
+  dirt, unwashed hair, worn clothing, no catalogue costumes.
+- **Accuracy.** Research each monument, how the solstice light actually falls there, the weather on December 21, and how the
+  people looked and dressed. Only December sunrises. Ancient scenes are solemn: people who feared the sun was dying.
+- **Diversity.** Each ancient scene should be internally consistent with its society, which was usually homogeneous, but across
+  the film the scenes should span the world's peoples. The modern scene can and should show a diverse, integrated crowd.
+- **Faces, not vistas.** The sun stays behind the camera; we watch people seeing it. Children and elders matter; families are present.
+
 ## How it is made
 
 Everything is generated or drawn from `film.py`, which holds the narration, the shot list with prompts,
