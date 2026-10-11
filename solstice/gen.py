@@ -33,8 +33,8 @@ def job_sfx(s):
 def job_video(shot):
     p = os.path.join(OUT, f"{shot['id']}.mp4")
     if os.path.exists(p): return p
-    res = fal.run("bytedance/seedance-2.0/fast/text-to-video",
-                  dict(prompt=shot["prompt"] + " " + film.STYLE, duration="8", aspect_ratio="16:9", resolution="720p", generate_audio=True, codec="H264"), log)
+    V = getattr(film, "VIDEO", dict(model="bytedance/seedance-2.0/fast/text-to-video", resolution="720p", duration="8"))
+    res = fal.run(V["model"], dict(prompt=shot["prompt"], duration=V["duration"], aspect_ratio="16:9", resolution=V["resolution"], generate_audio=True, codec="H264"), log)
     fal.download(fal.first_url(res), p); json.dump(res, open(p + ".json", "w")); return p
 
 def main():

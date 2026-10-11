@@ -1,73 +1,71 @@
-# "The Longest Night" v2 — script, shot list, and audio plan for a 3-minute solstice art film.
-# One sunrise, watched across seven thousand years. Edit the words here; gen.py makes assets; build.py cuts the film.
+# "The Longest Night" v3 — two scenes, faces lit by the sunrise behind the camera. Spielberg handheld-documentary mode.
+# Edit words and prompts here; gen.py makes assets; build.py cuts the film.
 
 DIRECTOR = "Philip Shane"
-VOICE = "George"   # ElevenLabs stock voice (warm storyteller). Try "Brian" for a deeper American read.
+VOICE = "George"
 
-# Narration. Each entry is one take. 'gap' is the relative weight of the silence BEFORE it; build.py scales gaps to hit 3:00.
+# Cheapest Seedance tier: 2.0 Mini at 480p (~$0.07 per second). The 'draft' flag only exists on Seedance 2.5, at 3x the price.
+VIDEO = dict(model="bytedance/seedance-2.0/mini/text-to-video", resolution="480p", duration="10")
+
 SEGMENTS = [
- dict(id="s1", gap=10, text="""Once a year, the night is longer than any other.
-Then the sun comes back.
-People have waited for this morning for a very long time."""),
- dict(id="s2", gap=7, text="""Goseck, Germany. Seven thousand years ago.
-A ring of wooden posts, with a gate cut toward the midwinter sunrise."""),
- dict(id="s3", gap=7, text="""Newgrange, Ireland. Five thousand years old.
-Its passage points at the sunrise of the shortest day.
-For seventeen minutes, light reaches the back wall."""),
- dict(id="s4", gap=7, text="""Karnak, Egypt. The great temple's axis points at the same sunrise."""),
- dict(id="s5", gap=6, text="""Alexandria. Greek astronomers measured the sun's wandering path.
-It is tilted to the sky's equator by about twenty-four degrees.
-They had the angle. Not yet the reason."""),
- dict(id="s6", gap=7, text="""Arizona. For centuries, Hopi sun watchers have tracked where the sun rises along the horizon.
-When it reaches its southern limit, the winter ceremonies begin."""),
- dict(id="s7", gap=6, text="""Fifteen forty-three. Copernicus.
-The Earth circles the sun, and its axis is tilted. That tilt is the whole story.
-In December, the north leans away: a low sun, and short days."""),
- dict(id="s8", gap=6, text="""Seventeen twenty-eight. James Bradley, measuring starlight, finds the proof that the Earth really moves."""),
- dict(id="s9", gap=7, text="""Today we know exactly why it happens.
-We still come to watch."""),
- dict(id="s10", gap=6, text="""The light is already on its way."""),
+ dict(id="s1", gap=9, hold=55, text="""Ireland. Five thousand years ago.
+The longest night is ending.
+They have come to see whether the sun will return."""),
+ dict(id="s2", gap=5, hold=55, text="""England. This morning."""),
+ dict(id="s3", gap=3, hold=8, text="""It always comes back."""),
 ]
 
-# Shots. Each belongs to a segment and plays, in order, during that segment's slot.
-# kind="gen" is Seedance text-to-video; kind="code" is drawn by build.py (card="angle" | "orbit").
-# 'sun' describes the stage of the one continuous sunrise, written into every prompt.
-STYLE = ("Documentary footage in the style of a National Geographic film, shot on 35mm motion picture film with visible fine grain, "
-         "anamorphic lens, natural available light, atmospheric haze, slightly soft and imperfect, real-world textures, muted "
-         "desaturated palette with warm sunlight, slow steady camera move. Not CGI, not a video game, not a 3D render, no glossy "
-         "surfaces, no text, no captions, no watermark, no logos.")
-SUN = {
- 0: "It is deep pre-dawn: the sky is dark blue, only a faint band of light on the eastern horizon.",
- 1: "It is the minutes before sunrise: the eastern horizon glows orange, the sun not yet visible.",
- 2: "The very first sliver of the sun is just breaking the horizon, a thin blazing edge.",
- 3: "The sun is half risen, a semicircle of gold sitting on the horizon, long shadows reaching toward the camera.",
- 4: "The full disc of the sun has just cleared the horizon, low and golden, long shadows.",
- 5: "The sun is a little above the horizon now, warm and bright, the sky turning pale blue.",
- 6: "The sun is climbing, bright white-gold, flooding everything with light.",
-}
+# Film look asked for in every prompt. Scene palettes differ: Newgrange cold teal and amber, Stonehenge grey-violet and pink-gold.
+STYLE = ("Shot like a Spielberg handheld documentary sequence: 35mm motion picture film, visible fine grain, subtle handheld movement, "
+         "natural light only, shallow depth of field, muted desaturated colors, soft halation, real skin texture, real fabric texture, "
+         "photorealistic, nothing glossy, not CGI, not a video game, not a 3D render. No text, no captions, no watermark, no logos.")
+NEWGRANGE_PEOPLE = ("The people are Neolithic Irish farmers of 3200 BC: black hair, brown eyes, olive southern-European complexions, weathered skin. "
+                    "They wear tanned leather and deer-hide garments, fur capes, woven plant-fibre cloaks, leather foot wrappings, bone pins. "
+                    "No wool, no metal, no dyed cloth. ")
+NEWGRANGE_PLACE = ("The setting is Newgrange in the Boyne valley, Ireland, on the winter solstice morning, deep frost on the grass, hard cold, breath visible. "
+                   "Behind the people stands the great mound: a huge dome of earth and loose stones with grass on top, ringed by big grey kerbstones, "
+                   "white quartz and dark rounded cobbles scattered on the ground at its foot, a low dark passage entrance with a carved spiral stone lying in front of it. "
+                   "The sun is rising behind the camera; the camera looks at the people's faces. ")
+STONEHENGE_PLACE = ("The setting is Stonehenge on the morning of the winter solstice today: thousands of people standing inside and around the circle of giant "
+                    "lichen-covered sarsen stones, frost on the grass, grey-violet sky turning pink, breath visible, hard cold. People wear puffer jackets, wool "
+                    "hats, scarves, gloves; a few wear white druid robes; some hold phones. The sun is rising behind the camera; the camera looks at their faces. ")
+LIGHT = ("Timing: 0-4s the faces are in cold blue shadow, waiting. 4-6s the first warm golden sunlight sweeps across their faces from the front, from behind the camera. "
+         "6-10s the faces are fully lit by low golden light; they squint slightly; the expressions are subtle, solemn, spiritual, quietly moved, like people "
+         "seeing something sacred just past the camera. No smiling, no exaggerated expressions.")
+
 SHOTS = [
  dict(id="t00", seg="s1", kind="code", card="title"),
- dict(id="w01", seg="s1", sun=0, cap=None, prompt="A vast frozen plain in deep winter, frost and thin snow, mist drifting low, no people, extremely slow dolly forward toward the east."),
- dict(id="w02", seg="s2", sun=0, cap="Goseck", prompt="A large circular enclosure of tall wooden posts in a frosty field in central Europe, neolithic, seen from a low angle, a gap in the ring facing the faint pre-dawn light, slow aerial drift."),
- dict(id="w03", seg="s2", sun=1, cap=None, prompt="A small group of neolithic people in furs and hides standing inside a ring of wooden posts, seen from behind, looking out through a gap in the posts toward the glowing eastern horizon, breath visible, locked camera."),
- dict(id="w04", seg="s3", sun=2, cap="Newgrange", prompt="Newgrange, a huge ancient grass-covered stone mound with a white quartz facade in Ireland, frost on the grass, a few people in wool cloaks waiting at the entrance seen from a distance, slow push in."),
- dict(id="v05", seg="s3", sun=2, cap=None, prompt="(reused from v1) Inside a neolithic stone passage, a beam of golden sunrise light creeping along the stone floor."),
- dict(id="w06", seg="s4", sun=3, cap="Karnak", prompt="Looking down the long central axis of the temple of Karnak in ancient Egypt, colossal columns, two priests in white linen walking slowly away from camera down the axis, mist, slow push in."),
- dict(id="w07", seg="s5", sun=3, cap="Alexandria", prompt="A tall stone gnomon casting a long shadow across a marble courtyard in Hellenistic Alexandria, a scholar in a tunic kneeling to mark the shadow's end with a line, the harbor and lighthouse far behind, slow pan."),
- dict(id="c08", seg="s5", kind="code", card="angle"),
- dict(id="w09", seg="s6", sun=4, cap="Hopi mesas, Arizona", prompt="A lone Hopi sun watcher wrapped in a blanket standing at the edge of a sandstone mesa in Arizona, seen from behind and far away, watching the sun on the horizon over a distant notched ridge, cold desert air, slow push in."),
- dict(id="w10", seg="s6", sun=4, cap=None, prompt="Adobe stone rooftops of a Hopi mesa-top village at sunrise, thin smoke rising from chimneys, a few figures in blankets on the roofs facing the sun, long shadows, slow crane move."),
- dict(id="w11", seg="s7", sun=4, cap="Frombork, 1543", prompt="A sixteenth-century astronomer in dark robes at a tower window in a brick cathedral, seen from behind, a wooden astronomical instrument beside him, morning sun streaming in, dust in the air, slow push in."),
- dict(id="c12", seg="s7", kind="code", card="orbit"),
- dict(id="w13", seg="s8", sun=5, cap="England, 1728", prompt="An eighteenth-century astronomer in a long coat beside a very long brass telescope mounted on a chimney in a quiet garden at morning, seen from a distance, mist, slow drift."),
- dict(id="w14", seg="s9", sun=5, cap="Stonehenge, today", prompt="A modern crowd of thousands at Stonehenge at dawn on the winter solstice, seen from behind, winter coats and hats, breath in the cold, the sun just above the horizon between the stones, many raised phones, documentary handheld feel."),
- dict(id="w15", seg="s9", sun=5, cap=None, prompt="A family of four seen from far behind on a snowy hilltop, watching the low winter sun above a wide valley, a small town below with lights, very slow push in."),
- dict(id="w16", seg="s10", sun=6, cap=None, prompt="Frozen plain at sunrise, the camera facing the sun. 0-4s: the bright low sun over sparkling frost, lens flare. 4-8s: the light grows until the whole image washes out to pure white."),
- dict(id="t17", seg="s10", kind="code", card="end"),
+ # --- Newgrange, c. 3200 BC
+ dict(id="n01", seg="s1", cap="Newgrange", pre=NEWGRANGE_PLACE+NEWGRANGE_PEOPLE,
+      prompt="Handheld wide shot in cold blue pre-dawn light: about forty people stand on frosted grass in front of the great mound, facing the camera, silent, breath rising; families with children, an elder at the front. The sky behind the mound is still dark; faint light on the people's faces from the brightening sky behind the camera."),
+ dict(id="n02", seg="s1", cap=None, pre=NEWGRANGE_PLACE+NEWGRANGE_PEOPLE,
+      prompt="Handheld medium shot of one family: a mother holding a small child wrapped in fur on her hip, a father with his hand on an older boy's shoulder, all looking past the camera toward the horizon, breath visible, cold blue light, waiting in silence. " + LIGHT),
+ dict(id="n03", seg="s1", cap=None, pre=NEWGRANGE_PLACE+NEWGRANGE_PEOPLE,
+      prompt="Handheld medium close-up of an old man at the front of the crowd: deeply lined weathered face, grey-streaked black hair, a long healed scar across one cheek, a fur cape at his shoulders, eyes fixed past the camera. " + LIGHT),
+ dict(id="n04", seg="s1", cap=None, pre=NEWGRANGE_PLACE+NEWGRANGE_PEOPLE,
+      prompt="Handheld medium close-up of a girl of about six, black hair, wrapped in a deer-hide cloak, one hand gripping her mother's cloak, looking past the camera, breath visible. " + LIGHT.replace("quietly moved", "a mix of awe and a little fear")),
+ dict(id="n05", seg="s1", cap=None, pre=NEWGRANGE_PLACE+NEWGRANGE_PEOPLE,
+      prompt="Slow handheld pan across many faces in the crowd as the golden sunrise light sweeps over them from the front, one after another, the great mound and its kerbstones behind them catching the light, a scatter of white quartz glowing at its foot. Solemn, still, breath in the air."),
+ dict(id="n06", seg="s1", cap=None, pre=NEWGRANGE_PLACE+NEWGRANGE_PEOPLE,
+      prompt="Inside the stone passage, handheld, looking back toward the entrance from the chamber: a thin blade of golden sunlight enters through a slot above the door and creeps along the stone floor toward the camera; two people kneel beside it, their faces lit from below by the reflected light, silent. 0-5s the beam is short; 5-10s it reaches the chamber."),
+ dict(id="b06", seg="s2", kind="code", card="black"),
+ # --- Stonehenge, today
+ dict(id="h07", seg="s2", cap="Stonehenge", pre=STONEHENGE_PLACE,
+      prompt="Handheld wide shot in grey-violet pre-dawn light: a dense crowd of thousands facing the camera inside the stone circle, the giant sarsens looming behind them, breath rising, a few phone screens glowing, drums being held, a group in white robes near the front. The sky brightening behind the camera. The sun itself is never visible in the frame: it is behind the camera, so the faces and the fronts of the stones are lit, and the sky behind the stones stays dim violet."),
+ dict(id="h08", seg="s2", cap=None, pre=STONEHENGE_PLACE,
+      prompt="Handheld medium shot of a family: a father with a toddler on his shoulders in a knitted hat, a mother beside him with a teenage daughter, all in puffer jackets and scarves, looking past the camera, breath visible, waiting. " + LIGHT),
+ dict(id="h09", seg="s2", cap=None, pre=STONEHENGE_PLACE,
+      prompt="Handheld medium close-up of an old woman in a wool coat and hat, white hair, deeply lined face, leaning on a walking stick, eyes fixed past the camera, breath visible. " + LIGHT),
+ dict(id="h10", seg="s2", cap=None, pre=STONEHENGE_PLACE,
+      prompt="Handheld medium close-up of a boy of about eight in a knitted hat and scarf, cheeks red with cold, holding his mother's gloved hand, looking past the camera. " + LIGHT.replace("quietly moved", "a mix of awe and a little fear")),
+ dict(id="h11", seg="s2", cap=None, pre=STONEHENGE_PLACE,
+      prompt="Slow handheld pan across many faces in the crowd as the golden sunrise light sweeps over them from the front, one after another; a man in a white robe closes his eyes; phones rise; the lichen-covered stones behind them turn warm. Breath in the air, quiet."),
+ dict(id="h12", seg="s3", cap=None, pre=STONEHENGE_PLACE,
+      prompt="Handheld wide shot, the whole crowd and the stones now lit by low golden sunlight from behind the camera, long shadows of the people stretching away from the camera toward the stones, a soft cheer going up, a few arms raised, drums beginning, frost sparkling. The sun itself is never visible in the frame: it is behind the camera; the faces and the fronts of the stones glow with its light. Slow push in."),
+ dict(id="t13", seg="s3", kind="code", card="end"),
 ]
 for sh in SHOTS:
-    if sh.get("kind", "gen") == "gen" and "sun" in sh and not sh["prompt"].startswith("("):
-        sh["prompt"] = sh["prompt"] + " " + SUN[sh["sun"]]
+    if sh.get("kind", "gen") == "gen": sh["prompt"] = sh.get("pre", "") + sh["prompt"] + " " + STYLE
 
 MUSIC_PROMPT = ("Slow, haunting, uplifting cinematic score for an art documentary about the winter solstice. "
                 "Sparse piano, low string drones, distant wordless choir, a soft frame drum pulse that enters halfway, "
@@ -76,8 +74,20 @@ MUSIC_PROMPT = ("Slow, haunting, uplifting cinematic score for an art documentar
 SFX = [
  dict(id="wind",  text="Cold wind blowing steadily over ancient stones on an open plain, distant, low, haunting", seconds=20, loop=True),
  dict(id="drum",  text="A single deep ceremonial drum hit with a long cathedral reverb tail", seconds=4),
- dict(id="fire",  text="A log fire crackling in a stone hearth, close, warm", seconds=10),
  dict(id="crowd", text="A quiet crowd murmuring outdoors at dawn in the cold, occasional gasp of awe, birdsong", seconds=10),
- dict(id="bell",  text="A single distant church bell tolling once, reverberant, winter morning", seconds=6),
+ dict(id="cheer", text="A large outdoor crowd cheering and whooping softly as the sun rises, drums starting, distant, cold morning air", seconds=10),
  dict(id="rise",  text="A slow luminous rising swell, like a sunrise, soft shimmering cinematic riser", seconds=8),
 ]
+
+# Colour grade per scene (ffmpeg filters applied to each clip before the shared film look)
+GRADE = {
+ "s1": "colorbalance=rs=-0.06:gs=0.01:bs=0.09:rm=-0.02:bm=0.03:rh=0.07:gh=0.03:bh=-0.05",   # Newgrange: teal shadows, amber light
+ "s2": "colorbalance=rs=0.02:gs=-0.02:bs=0.07:rh=0.09:gh=0.02:bh=-0.01",                    # Stonehenge: violet shadows, pink-gold light
+ "s3": "colorbalance=rs=0.02:gs=-0.02:bs=0.07:rh=0.09:gh=0.02:bh=-0.01",
+}
+# Light leaks: (shot id, start offset s, end offset s, strength). Timed to the moment the light hits the faces.
+LEAKS = [("n02", 3.5, 7.5, 0.5), ("n03", 3.5, 7.5, 0.6), ("n04", 3.5, 7.5, 0.5), ("n05", 0.0, 4.0, 0.45),
+         ("h08", 3.5, 7.5, 0.5), ("h09", 3.5, 7.5, 0.6), ("h10", 3.5, 7.5, 0.5), ("h11", 0.0, 4.0, 0.45), ("h12", 0.0, 3.0, 0.7)]
+# Sound cues: (sfx id, shot id or absolute seconds, offset s, volume, max length s)
+CUES = [("wind", 0.5, 0, 0.35, 48.0), ("drum", "n03", 4.0, 0.6, 6), ("rise", "n05", -1.0, 0.5, 8),
+        ("crowd", "h07", 0.0, 0.45, 10), ("drum", "h09", 4.0, 0.5, 6), ("cheer", "h12", 0.5, 0.6, 10), ("rise", "h11", -1.0, 0.5, 8)]

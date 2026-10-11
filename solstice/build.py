@@ -204,6 +204,33 @@ def render_end(path, length):
         return im
     pipe_frames(path, int(length*FPS), frame)
 
+def render_black(path, length):
+    pipe_frames(path, int(length*FPS), lambda t: Image.new("RGB", (W, H), (0, 0, 0)))
+
+def render_leaks(path, total, windows):
+    """Warm film light leaks: black video with soft drifting blobs that bloom during each (start, end, strength) window."""
+    w, h = 320, 180
+    p = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{w}x{h}", "-r", str(FPS), "-i", "-",
+                          "-c:v", "libx264", "-preset", "fast", "-crf", "18", "-pix_fmt", "yuv420p", path], stdin=subprocess.PIPE)
+    yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
+    for i in range(int(total*FPS)):
+        t = i / FPS; env = 0.0
+        for (t0, t1, s) in windows:
+            if t0 <= t <= t1:
+                u = (t - t0) / max(0.01, t1 - t0); env = max(env, s * math.sin(math.pi*u)**1.5)
+        if env <= 0.002: frame = np.zeros((h, w, 3), np.uint8)
+        else:
+            img = np.zeros((h, w, 3), np.float32)
+            for k, (col, spd) in enumerate((((1.0, 0.55, 0.18), 0.23), ((1.0, 0.35, 0.12), 0.17), ((0.95, 0.75, 0.4), 0.31))):
+                cx = w*(0.5 + 0.45*math.sin(t*spd + k*2.1)); cy = h*(0.5 + 0.4*math.cos(t*spd*0.8 + k*1.3))
+                r2 = ((xx-cx)**2 + (yy-cy)**2) / (2*(0.22*w)**2)
+                g = np.exp(-r2)[..., None] * np.array(col, np.float32)
+                img += g
+            img = np.clip(img * env * 0.9, 0, 1)
+            frame = (img*255).astype(np.uint8)
+        p.stdin.write(frame.tobytes())
+    p.stdin.close(); p.wait()
+
 def render_caption(path, text):
     im = Image.new("RGBA", (W, H), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
     f = F(SERIF, 40)
@@ -223,20 +250,21 @@ def main():
         p = os.path.join(A, f"voice_{s['id']}.mp3")
         if not os.path.exists(p): sys.exit(f"missing narration {p}; run gen.py voice")
         segs.append(dict(s, path=p, ndur=dur(p)))
-    N = sum(s["ndur"] for s in segs); G = sum(s["gap"] for s in segs)
-    k = (TARGET - TAIL - N) / G
-    if k < 0.3: print(f"warning: narration ({N:.0f}s) nearly fills the target; gaps squeezed (k={k:.2f})")
+    # 'gap' = fixed silence before the line; 'hold' = weight of the silence after it, scaled so the film hits TARGET
+    N = sum(s["ndur"] for s in segs); G = sum(s["gap"] for s in segs); Hw = sum(s.get("hold", 1.0) for s in segs)
+    k = (TARGET - TAIL - N - G) / Hw
+    if k < 0.3: print(f"warning: narration ({N:.0f}s) nearly fills the target; holds squeezed (k={k:.2f})")
     t = 0.0
     for s in segs:
-        s["start"] = t + s["gap"]*k; s["slot_start"] = t; t = s["start"] + s["ndur"]
+        s["start"] = t + s["gap"]; s["slot_start"] = t; t = s["start"] + s["ndur"] + s.get("hold", 1.0)*k
     segs[-1]["slot_end"] = t + TAIL
     for i in range(len(segs)-1): segs[i]["slot_end"] = segs[i+1]["slot_start"]
     total = segs[-1]["slot_end"]
-    print(f"narration {N:.1f}s, gaps scaled x{k:.2f}, total {total:.1f}s")
+    print(f"narration {N:.1f}s, holds scaled x{k:.2f}, total {total:.1f}s")
 
     # shots: give fixed-length code cards (title, end) their time first, then split the rest of the
     # segment's slot evenly among the other shots (generated shots whose file is missing are skipped)
-    FIXED = {"title": 8.0, "end": TAIL}
+    FIXED = {"title": 8.0, "end": TAIL, "black": 4.0}
     for sh in film.SHOTS:
         if sh.get("card") in FIXED: sh[sh["card"]] = True
     shots = []
@@ -261,7 +289,7 @@ def main():
         if sh.get("kind") == "code":
             path = os.path.join(OUT, sh["id"] + ".mp4"); need = sh["L"] + (0 if sh is shots[-1] else XF)
             if not os.path.exists(path) or abs(dur(path) - need) > 0.2:
-                dict(title=render_title, angle=render_angle, orbit=render_orbit, end=render_end)[sh["card"]](path, need)
+                dict(title=render_title, angle=render_angle, orbit=render_orbit, end=render_end, black=render_black)[sh["card"]](path, need)
             sh["path"] = path
         else:
             sh["path"] = os.path.join(A, sh["id"] + ".mp4")
@@ -279,7 +307,9 @@ def main():
         idx = add("-i", sh["path"])
         src = dur(sh["path"]) if sh.get("kind") != "code" else need
         slow = max(1.0, need / src) if src < need else 1.0     # stretch a short clip instead of cutting to black
-        fc.append(f"[{idx}:v]fps={FPS},scale={W}:{H}:flags=lanczos,setsar=1,setpts={slow:.4f}*PTS,trim=0:{need:.3f},setpts=PTS-STARTPTS,format=yuv420p[v{i}]")
+        GRADE = getattr(film, "GRADE", {}).get(sh["seg"], "") if sh.get("kind") != "code" else ""
+        grade = (GRADE + ",") if GRADE else ""
+        fc.append(f"[{idx}:v]fps={FPS},scale={W}:{H}:flags=lanczos,setsar=1,setpts={slow:.4f}*PTS,trim=0:{need:.3f},setpts=PTS-STARTPTS,{grade}format=yuv420p[v{i}]")
         vlabels.append(f"[v{i}]"); sh["idx"] = idx; sh["slow"] = slow
     cur = vlabels[0]; off = 0.0
     for i in range(1, len(shots)):
@@ -289,6 +319,16 @@ def main():
     LOOK = ("eq=contrast=1.06:saturation=0.8:gamma=1.02,curves=master='0/0.03 0.25/0.22 0.75/0.78 1/0.97',"
             "noise=c0s=16:c0f=t+u:c1s=5:c1f=t+u:c2s=5:c2f=t+u,vignette=angle=PI/4.5,crop=1920:804:0:138,pad=1920:1080:0:138:black")
     fc.append(f"{cur}{LOOK}[look]"); cur = "[look]"
+    leaks = getattr(film, "LEAKS", None)
+    if leaks:
+        windows = []
+        for (sid, t0, t1, s) in leaks:
+            sh = next((x for x in shots if x["id"] == sid), None)
+            if sh: windows.append((sh["start"] + t0, sh["start"] + t1, s))
+        lp = os.path.join(OUT, "leaks.mp4"); render_leaks(lp, total, windows)
+        idx = add("-i", lp)
+        fc.append(f"[{idx}:v]scale={W}:{H},format=gbrp[leakv]")
+        fc.append(f"{cur}format=gbrp[lookg]; [lookg][leakv]blend=all_mode=screen:all_opacity=0.85,format=yuv420p[lk]"); cur = "[lk]"
     # captions
     for sh in shots:
         if not sh.get("cap_png"): continue
@@ -324,15 +364,8 @@ def main():
     by_id = {sh["id"]: sh for sh in shots}
     seg_at = {s["id"]: s for s in segs}
     def at(shot_id, plus=0.0): return by_id[shot_id]["start"] + plus if shot_id in by_id else None
-    cues = [
-        ("wind",  0.5, 0.35, 48.0),                      # (sfx, start, volume, max length)
-        ("drum",  at("w03", 1.0), 0.7, 6),
-        ("drum",  at("v05", 2.5), 0.5, 6),
-        ("wind",  at("w09"), 0.3, 20),
-        ("bell",  at("w11", 0.5), 0.55, 6),
-        ("crowd", at("w14"), 0.5, 10),
-        ("rise",  at("w16"), 0.7, 8),
-    ]
+    cues = [(sid if not isinstance(sid, tuple) else sid[0], st, vol, mx) for (sid, st, vol, mx) in [
+        (c[0], (at(c[1], c[2]) if isinstance(c[1], str) else c[1]), c[3], c[4]) for c in getattr(film, "CUES", [])]]
     for j, (sid, st, vol, mx) in enumerate(cues):
         p = os.path.join(A, f"sfx_{sid}.mp3")
         if st is None or not os.path.exists(p): continue

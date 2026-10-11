@@ -4,22 +4,21 @@ Made for the AI Cafe holiday film festival. Directed by Philip Shane.
 
 Watch: `out/the_longest_night.mp4` (1080p, 24 fps, 2.39:1 letterbox, 3:00). A smaller copy is `out/the_longest_night_720p.mp4`.
 
-## Version 2 (current)
+## Version 3 (current): two scenes, faces lit by the sunrise
 
-One sunrise, watched across seven thousand years. Six places in chronological order, December sunrises only,
-with three beats on the history of understanding the Earth's tilt:
+Newgrange around 3200 BC and Stonehenge today. The sun is behind the camera; we watch the people's faces as the
+first light reaches them, in a Spielberg handheld-documentary style. Generated on the cheapest Seedance tier
+(2.0 Mini, 480p, about 7 cents per second, upscaled to 1080p), with per-scene colour grades, light leaks timed to
+the moment the light hits, and a black beat between the two eras. Research notes behind the prompts:
 
-1. Goseck, Germany (c. 4900 BC): a ring of posts with a gate cut to the midwinter sunrise.
-2. Newgrange, Ireland (c. 3200 BC): the passage lit for 17 minutes on the shortest day.
-3. Karnak, Egypt (c. 2000 BC): the temple axis on the same sunrise.
-4. Alexandria (c. 240 BC): Greek astronomers measure the tilt of the sun's path at about 24 degrees (Eratosthenes).
-5. Hopi mesas, Arizona: sun watchers track the sunrise along the horizon to time the winter ceremonies (Soyal).
-6. Frombork, 1543: Copernicus explains it as the Earth's tilted axis.
-7. England, 1728: James Bradley's discovery of stellar aberration, the first direct proof that the Earth moves.
-8. Stonehenge, today.
+- Newgrange: the beam enters a slot above the door about 4.5 minutes after sunrise and lasts about 17 minutes.
+  The white quartz wall is a 1970s reconstruction, so the ancient scene shows kerbstones and scattered quartz instead.
+  Neolithic Irish people (Ballynahatty genome) had black hair and brown eyes; dress is hide, fur and plant fibre, no wool.
+- Stonehenge: thousands gather inside the circle for a roughly 8:09 am sunrise, in coats and hats, some in druid robes.
 
-Every prompt carries a "sun stage" line (see `SUN` in `film.py`) so the sun climbs steadily through the film.
-Version 1 (14 places, festival montage) is kept as `v1/film_v1.py`; its video is in git history.
+Version 2 (`v2/film_v2.py`): one sunrise across seven thousand years, six places in order, three tilt beats.
+Version 1 (`v1/film_v1.py`): fourteen places and a festival montage. Both videos are in git history.
+
 
 ## How it is made
 
