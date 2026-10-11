@@ -51,7 +51,7 @@ SHOTS = [
  dict(id="b06", seg="s2", kind="code", card="black"),
  # --- Stonehenge, today
  dict(id="h07", seg="s2", cap="Stonehenge", pre=STONEHENGE_PLACE,
-      prompt="Handheld wide shot in grey-violet pre-dawn light: a dense crowd of thousands facing the camera inside the stone circle, the giant sarsens looming behind them, breath rising, a few phone screens glowing, drums being held, a group in white robes near the front. The sky brightening behind the camera. The sun itself is never visible in the frame: it is behind the camera, so the faces and the fronts of the stones are lit, and the sky behind the stones stays dim violet."),
+      prompt="Handheld medium-wide shot, camera low among the front rows, grey-violet pre-dawn light: about twenty people in winter coats and wool hats face the camera, silent, breath rising, a few phone screens glowing, two people in white robes among them; the giant lichen-covered stones are directly behind their shoulders. The sun is behind the camera and never visible; the sky behind the stones stays dim violet. More faces fill the frame than sky."),
  dict(id="h08", seg="s2", cap=None, pre=STONEHENGE_PLACE,
       prompt="Handheld medium shot of a family: a father with a toddler on his shoulders in a knitted hat, a mother beside him with a teenage daughter, all in puffer jackets and scarves, looking past the camera, breath visible, waiting. " + LIGHT),
  dict(id="h09", seg="s2", cap=None, pre=STONEHENGE_PLACE,
@@ -61,7 +61,7 @@ SHOTS = [
  dict(id="h11", seg="s2", cap=None, pre=STONEHENGE_PLACE,
       prompt="Slow handheld pan across many faces in the crowd as the golden sunrise light sweeps over them from the front, one after another; a man in a white robe closes his eyes; phones rise; the lichen-covered stones behind them turn warm. Breath in the air, quiet."),
  dict(id="h12", seg="s3", cap=None, pre=STONEHENGE_PLACE,
-      prompt="Handheld wide shot, the whole crowd and the stones now lit by low golden sunlight from behind the camera, long shadows of the people stretching away from the camera toward the stones, a soft cheer going up, a few arms raised, drums beginning, frost sparkling. The sun itself is never visible in the frame: it is behind the camera; the faces and the fronts of the stones glow with its light. Slow push in."),
+      prompt="Handheld medium-wide shot, camera low among the front rows: several rows of faces lit by low golden sunlight coming from behind the camera, a man in a white robe at the front with eyes closed, a few arms rising, a soft cheer, drums beginning, breath glowing in the light; the fronts of the great stones glow warm behind them. The sun is behind the camera and never visible in the frame. More faces fill the frame than sky. Slow push in."),
  dict(id="t13", seg="s3", kind="code", card="end"),
 ]
 for sh in SHOTS:
