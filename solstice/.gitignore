@@ -4,3 +4,10 @@ out/cap_*.png
 out/graph.txt
 assets/check_*.png
 gen*.log
+reference/**/cand/
+reference/**/cand2/
+reference/**/cand_loc/
+reference/**/cand_*.json
+reference/**/cand_*.jpg
+reference/*.log
+__pycache__/
